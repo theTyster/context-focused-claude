@@ -1,0 +1,22 @@
+{
+  "name": "context-focused-claude",
+  "description": "Independent context-management system for Claude Code using parallel sub-agents and structured documentation",
+  "owner": {
+    "name": "ty",
+    "email": "ty@example.com"
+  },
+  "plugins": [
+    {
+      "name": "context-focused-claude",
+      "description": "Independent context-management system for Claude Code using parallel sub-agents and structured documentation. Provides intelligent context management through parallel sub-agents and structured documentation.",
+      "version": "1.0.0",
+      "source": "./",
+      "author": {
+        "name": "ty",
+        "email": "ty@example.com"
+      },
+      "category": "productivity",
+      "homepage": ""
+    }
+  ]
+}
