@@ -1,5 +1,6 @@
 ---
-description: Create detailed implementation plans with thorough research and iteration
+name: create_plan_nt
+description: Use when creating detailed implementation plans with thorough research and iteration
 model: opus
 ---
 

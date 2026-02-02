@@ -1,5 +1,6 @@
 ---
-description: Document codebase as-is without evaluation or recommendations
+name: research_codebase_nt
+description: Use when documenting codebase as-is without evaluation or recommendations
 model: opus
 ---
 

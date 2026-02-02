@@ -1,5 +1,6 @@
 ---
-description: Generate comprehensive Pull Request templates following repository templates
+name: ci-describe-pr
+description: Use when generating comprehensive Pull Request templates following repository templates in CI environments
 ---
 
 # Generate PR Description

@@ -12,8 +12,8 @@
       "directory": "agents",
       "autoDiscover": true
     },
-    "commands": {
-      "directory": "commands",
+    "skills": {
+      "directory": "skills",
       "autoDiscover": true
     }
   },

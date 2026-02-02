@@ -1,6 +1,7 @@
 # Claude Code session files
 .claude/
 *.local.md
+thoughts
 
 # OS files
 .DS_Store

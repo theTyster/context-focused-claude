@@ -1,5 +1,6 @@
 ---
-description: Implement technical plans from thoughts/plans with verification
+name: implement_plan
+description: Use when implementing technical plans from thoughts/plans with verification
 ---
 
 # Implement Plan

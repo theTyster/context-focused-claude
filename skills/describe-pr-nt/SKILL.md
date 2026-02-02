@@ -1,5 +1,6 @@
 ---
-description: Generate comprehensive PR descriptions following repository templates
+name: describe-pr-nt
+description: Use when generating comprehensive PR descriptions following repository templates
 ---
 
 # Generate PR Description
