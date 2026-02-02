@@ -13,10 +13,10 @@
       "source": "./",
       "author": {
         "name": "ty",
-        "email": "ty@example.com"
+        "email": "noreply@mail.thetyster.dev"
       },
       "category": "productivity",
-      "homepage": ""
+      "homepage": "https://github.com/thetyster/context-focused-claude"
     }
   ]
 }
