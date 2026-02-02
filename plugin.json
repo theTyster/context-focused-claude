@@ -1,0 +1,50 @@
+{
+  "name": "context-focused-claude",
+  "version": "1.0.0",
+  "description": "Independent context-management system for Claude Code using parallel sub-agents and structured documentation",
+  "author": "ty",
+  "license": "MIT",
+  "claude": {
+    "minVersion": "0.1.0"
+  },
+  "components": {
+    "agents": {
+      "directory": "agents",
+      "autoDiscover": true
+    },
+    "commands": {
+      "directory": "commands",
+      "autoDiscover": true
+    }
+  },
+  "settings": {
+    "thoughtsDirectory": "thoughts",
+    "researchSubdir": "research",
+    "plansSubdir": "plans",
+    "handoffsSubdir": "handoffs"
+  },
+  "dependencies": {
+    "tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Grep",
+      "Glob",
+      "LS",
+      "WebSearch",
+      "WebFetch",
+      "Task"
+    ],
+    "external": []
+  },
+  "features": {
+    "parallelSubAgents": true,
+    "contextCompaction": true,
+    "structuredDocumentation": true
+  },
+  "documentation": {
+    "readme": "README.md",
+    "examples": "thoughts/research/2026-02-02-command-evaluation.md"
+  }
+}
