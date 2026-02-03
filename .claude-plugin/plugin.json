@@ -1,7 +1,7 @@
 {
-  "name": "context-focused-claude",
+  "name": "context-management",
   "version": "1.0.0",
-  "description": "Independent context-management system for Claude Code using parallel sub-agents and structured documentation",
+  "description": "Adaptation of humanlayer's Independent context-management system for Claude Code using parallel sub-agents and structured documentation. Provides intelligent context management through parallel sub-agents and structured documentation.",
   "author": {
     "name": "ty"
   },
