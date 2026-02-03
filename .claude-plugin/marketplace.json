@@ -1,5 +1,5 @@
 {
-  "name": "context-focused-claude",
+  "name": "context-management-plugins",
   "description": "Independent context-management system for Claude Code using parallel sub-agents and structured documentation",
   "owner": {
     "name": "ty",
