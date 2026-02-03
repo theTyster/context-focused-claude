@@ -4,4 +4,4 @@ argument-hint: Optional research question
 disable-model-invocation: true
 ---
 
-Invoke the context-focused-claude:research-codebase-nt skill and follow it exactly as presented to you
+Invoke the context-management:research-codebase-nt skill and follow it exactly as presented to you

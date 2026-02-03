@@ -3,4 +3,4 @@ description: Create git commits automatically for CI environments without user i
 disable-model-invocation: true
 ---
 
-Invoke the context-focused-claude:ci-commit skill and follow it exactly as presented to you
+Invoke the context-management:ci-commit skill and follow it exactly as presented to you

@@ -4,4 +4,4 @@ argument-hint: Path to handoff document
 disable-model-invocation: true
 ---
 
-Invoke the context-focused-claude:resume-handoff skill and follow it exactly as presented to you
+Invoke the context-management:resume-handoff skill and follow it exactly as presented to you

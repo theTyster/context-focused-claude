@@ -3,4 +3,4 @@ description: Create autonomous implementation plans through thorough research fo
 disable-model-invocation: true
 ---
 
-Invoke the context-focused-claude:create_plan skill and follow it exactly as presented to you
+Invoke the context-management:create_plan skill and follow it exactly as presented to you

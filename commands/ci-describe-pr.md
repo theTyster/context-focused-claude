@@ -3,4 +3,4 @@ description: Generate PR descriptions automatically for CI environments without 
 disable-model-invocation: true
 ---
 
-Invoke the context-focused-claude:ci-describe-pr skill and follow it exactly as presented to you
+Invoke the context-management:ci-describe-pr skill and follow it exactly as presented to you

@@ -3,4 +3,4 @@ description: Generate comprehensive PR descriptions following repository templat
 disable-model-invocation: true
 ---
 
-Invoke the context-focused-claude:describe-pr skill and follow it exactly as presented to you
+Invoke the context-management:describe-pr skill and follow it exactly as presented to you
