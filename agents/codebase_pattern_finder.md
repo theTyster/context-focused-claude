@@ -1,6 +1,6 @@
 ---
-name: codebase-pattern-finder
-description: codebase-pattern-finder is a useful subagent_type for finding similar implementations, usage examples, or existing patterns that can be modeled after. It will give you concrete code examples based on what you're looking for! It's sorta like codebase-locator, but it will not only tell you the location of files, it will also give you code details!
+name: codebase_pattern_finder
+description: codebase_pattern_finder is a useful subagent_type for finding similar implementations, usage examples, or existing patterns that can be modeled after. It will give you concrete code examples based on what you're looking for! It's sorta like codebase_locator, but it will not only tell you the location of files, it will also give you code details!
 tools: Grep, Glob, Read, LS
 model: sonnet
 ---
@@ -59,7 +59,8 @@ What to look for based on request:
 
 Structure your findings like this:
 
-```
+------
+** OUTPUT EXAMPLES BEGIN HERE **
 ## Pattern Examples: [Pattern Type]
 
 ### Pattern 1: [Descriptive Name]
@@ -165,7 +166,8 @@ describe('Pagination', () => {
 ### Related Utilities
 - `src/utils/pagination.js:12` - Shared pagination helpers
 - `src/middleware/validate.js:34` - Query parameter validation
-```
+------
+** OUTPUT EXAMPLES END HERE **
 
 ## Pattern Categories to Search
 

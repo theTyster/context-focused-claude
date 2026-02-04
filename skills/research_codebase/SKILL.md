@@ -1,5 +1,5 @@
 ---
-name: research_codebase_nt
+name: research_codebase
 description: Use when documenting codebase as-is without evaluation or recommendations
 model: opus
 ---
@@ -46,19 +46,15 @@ Then wait for the user's research query.
    - We now have specialized agents that know how to do specific research tasks:
 
    **For codebase research:**
-   - Use the **codebase-locator** agent to find WHERE files and components live
-   - Use the **codebase-analyzer** agent to understand HOW specific code works (without critiquing it)
-   - Use the **codebase-pattern-finder** agent to find examples of existing patterns (without evaluating them)
+   - Use the **codebase_locator** agent to find WHERE files and components live
+   - Use the **codebase_analyzer** agent to understand HOW specific code works (without critiquing it)
+   - Use the **codebase_pattern_finder** agent to find examples of existing patterns (without evaluating them)
 
    **IMPORTANT**: All agents are documentarians, not critics. They will describe what exists without suggesting improvements or identifying issues.
 
    **For web research (only if user explicitly asks):**
-   - Use the **web-search-researcher** agent for external documentation and resources
-   - IF you use web-research agents, instruct them to return LINKS with their findings, and please INCLUDE those links in your final report
-
-   **For Linear tickets (if relevant):**
-   - Use the **linear-ticket-reader** agent to get full details of a specific ticket
-   - Use the **linear-searcher** agent to find related tickets or historical context
+   - Use the **web_search_researcher** agent for external documentation and resources
+   - IF you use web_research agents, instruct them to return LINKS with their findings, and please INCLUDE those links in your final report
 
    The key is to use these agents intelligently:
    - Start with locator agents to find what exists
@@ -70,7 +66,7 @@ Then wait for the user's research query.
 
 4. **Wait for all sub-agents to complete and synthesize findings:**
    - IMPORTANT: Wait for ALL sub-agent tasks to complete before proceeding
-   - Compile all sub-agent results
+   - Compile all sub-agent results (both codebase and thoughts findings)
    - Prioritize live codebase findings as primary source of truth
    - Connect findings across different components
    - Include specific file paths and line numbers for reference
@@ -143,14 +139,7 @@ Then wait for the user's research query.
      [Any areas that need further investigation]
      ```
 
-7. **Add GitHub permalinks (if applicable):**
-   - Check if on main branch or if commit is pushed: `git branch --show-current` and `git status`
-   - If on main/master or pushed, generate GitHub permalinks:
-     - Get repo info: `gh repo view --json owner,name`
-     - Create permalinks: `https://github.com/{owner}/{repo}/blob/{commit}/{file}#L{line}`
-   - Replace local file references with permalinks in the document
-
-8. **Present findings:**
+7. **Present findings:**
    - Present a concise summary of findings to the user
    - Include key file references for easy navigation
    - Ask if they have follow-up questions or need clarification
@@ -171,7 +160,6 @@ Then wait for the user's research query.
 - Each sub-agent prompt should be specific and focused on read-only documentation operations
 - Document cross-component connections and how systems interact
 - Include temporal context (when the research was conducted)
-- Link to GitHub when possible for permanent references
 - Keep the main agent focused on synthesis, not deep file reading
 - Have sub-agents document examples and usage patterns as they exist
 - **CRITICAL**: You and all sub-agents are documentarians, not evaluators

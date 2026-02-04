@@ -1,5 +1,5 @@
 ---
-name: resume-handoff
+name: resume_handoff
 description: Use when resuming work from handoff document with context analysis and validation
 ---
 

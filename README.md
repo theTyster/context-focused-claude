@@ -17,48 +17,39 @@ Context-Focused Claude provides intelligent context management through parallel 
 
 ## Installation
 
-### From Local Directory
-
-```bash
-cc plugin add /home/ty/Projects/mine/context-focused-claude
-```
-
-### From Git Repository (once published)
-
 ```bash
 cc plugin add https://github.com/yourusername/context-focused-claude
 ```
 
 ## Components
 
-### Skills (14 total)
+### Skills (12 total)
 
-The plugin includes 14 specialized skills:
+The plugin includes 12 specialized skills:
 
-- **create-plan**: Autonomous implementation plan creation through thorough research
-- **create-plan-nt**: Non-interactive plan creation variant
-- **implement-plan**: Execute implementation plans with validation
-- **validate-plan**: Validate implementations against plans
-- **create-handoff**: Create structured handoff documents for session transitions
-- **resume-handoff**: Resume work from handoff documents
-- **describe-pr**: Generate comprehensive pull request descriptions
-- **describe-pr-nt**: Non-interactive PR description variant
-- **ci-describe-pr**: CI-focused PR description generation
-- **commit**: Create well-formatted commit messages
-- **ci-commit**: CI-focused commit message generation
-- **research-codebase-generic**: General codebase research
-- **research-codebase-nt**: Non-interactive codebase research
+- **create_plan**: Enables an autonomous agent to perform thorough codebase research and generate a detailed, actionable implementation plan for other sub-agents to execute.
+- **create_plan_interactively**: Generates detailed, phased implementation plans by conducting thorough codebase research and iteratively collaborating with a user to define a clear and verifiable engineering approach.
+- **implement_plan**: Executes phased technical plans by implementing the specified code changes and verifying the success criteria for each step.
+- **validate_plan**: Validates a software implementation against its development plan, verifies success criteria, and identifies any deviations or potential issues.
+- **create_handoff**: Creates a structured markdown document summarizing the current work session, including tasks, recent changes, and next steps, to enable a seamless handoff to another agent.
+- **resume_handoff**: Interactively resumes a task by reading a specified handoff document, analyzing its context, verifying the current state of the codebase against the document's claims, and creating an action plan to continue the work.
+- **describe_pr**: Generates a comprehensive pull request description by analyzing the current branch's changes, filling out a repository-specific template, and automatically running verification commands.
+- **describe_pr_nt**: Non-interactively generates a comprehensive pull request description by analyzing the current branch's changes and filling out a repository-specific template.
+- **ci_describe_pr**: Automates the generation of comprehensive pull request descriptions by analyzing git commits, summarizing changes, and filling out the repository's standard PR template, making it ideal for use in CI environments.
+- **commit**: Enables an agent to intelligently group file changes, draft descriptive messages, and create git commits on the user's behalf after receiving their approval.
+- **ci_commit**: Enables an AI agent to autonomously create clear and atomic git commits for session changes within a CI environment.
+- **research-codebase**: Researches and documents the current state of a codebase in response to a user's query by spawning parallel sub-agents and synthesizing their findings into a purely descriptive technical report.
 
 ### Agents (6 total)
 
 Specialized sub-agents for autonomous tasks:
 
-- **codebase-analyzer**: Analyzes implementation details and technical workings
-- **codebase-locator**: Locates files, directories, and components relevant to features
-- **codebase-pattern-finder**: Finds similar implementations and usage patterns
-- **thoughts-analyzer**: Deep dive research on topics in thoughts directory
-- **thoughts-locator**: Discovers relevant documents in thoughts directory
-- **web-search-researcher**: Researches modern information from the web
+- **codebase_analyzer**: Analyzes implementation details and technical workings
+- **codebase_locator**: Locates files, directories, and components relevant to features
+- **codebase_pattern_finder**: Finds similar implementations and usage patterns
+- **thoughts_analyzer**: Deep dive research on topics in thoughts directory
+- **thoughts_locator**: Discovers relevant documents in thoughts directory
+- **web_search_researcher**: Researches modern information from the web
 
 ## Usage
 
@@ -67,7 +58,7 @@ Specialized sub-agents for autonomous tasks:
 When you need to plan a feature implementation:
 
 ```
-Claude will automatically use the create-plan skill when appropriate
+Claude will automatically use the create_plan skill when appropriate
 ```
 
 The skill will:
@@ -90,14 +81,6 @@ When resuming work:
 Resume from the handoff document in thoughts/handoffs/
 ```
 
-### Generating PR Descriptions
-
-When creating a pull request:
-
-```
-Claude will generate comprehensive PR descriptions following your repository's template
-```
-
 ## Directory Structure
 
 The plugin creates and maintains a `thoughts/` directory structure:
@@ -107,28 +90,5 @@ thoughts/
 ├── plans/          # Implementation plans
 ├── research/       # Research documents and findings
 ├── handoffs/       # Session handoff documents
-├── pr_descriptions/# Generated PR descriptions
 └── tickets/        # Issue and ticket analysis
 ```
-
-## Configuration
-
-The plugin uses these default settings (configurable in plugin.json):
-
-- **thoughtsDirectory**: `thoughts`
-- **researchSubdir**: `research`
-- **plansSubdir**: `plans`
-- **handoffsSubdir**: `handoffs`
-
-## Requirements
-
-- Claude Code v0.1.0 or higher
-- Tools: Read, Write, Edit, Bash, Grep, Glob, LS, WebSearch, WebFetch, Task
-
-## License
-
-MIT
-
-## Author
-
-ty

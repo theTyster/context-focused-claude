@@ -1,5 +1,5 @@
 ---
-name: create-handoff
+name: create_handoff
 description: Use when creating handoff document for transferring work to another session
 ---
 

@@ -31,9 +31,9 @@ You are tasked with autonomously creating detailed implementation plans through 
 2. **Spawn parallel research tasks**:
    Use specialized agents to research concurrently:
 
-   - **codebase-locator** - Find all files related to the ticket/task
-   - **codebase-analyzer** - Understand current implementation
-   - **codebase-pattern-finder** - Find similar features to model after
+   - **codebase_locator** - Find all files related to the ticket/task
+   - **codebase_analyzer** - Understand current implementation
+   - **codebase_pattern_finder** - Find similar features to model after
 
    These agents will:
    - Find relevant source files, configs, and tests

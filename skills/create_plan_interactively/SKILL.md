@@ -1,5 +1,5 @@
 ---
-name: create_plan_nt
+name: create_plan_interactively
 description: Use when creating detailed implementation plans with thorough research and iteration
 model: opus
 ---
@@ -50,9 +50,8 @@ Then wait for the user's input.
 2. **Spawn initial research tasks to gather context**:
    Before asking the user any questions, use specialized agents to research in parallel:
 
-   - Use the **codebase-locator** agent to find all files related to the ticket/task
-   - Use the **codebase-analyzer** agent to understand how the current implementation works
-   - If a Linear ticket is mentioned, use the **linear-ticket-reader** agent to get full details
+   - Use the **codebase_locator** agent to find all files related to the ticket/task
+   - Use the **codebase_analyzer** agent to understand how the current implementation works
 
    These agents will:
    - Find relevant source files, configs, and tests
@@ -104,12 +103,9 @@ After getting initial clarifications:
    - Use the right agent for each type of research:
 
    **For deeper investigation:**
-   - **codebase-locator** - To find more specific files (e.g., "find all files that handle [specific component]")
-   - **codebase-analyzer** - To understand implementation details (e.g., "analyze how [system] works")
-   - **codebase-pattern-finder** - To find similar features we can model after
-
-   **For related tickets:**
-   - **linear-searcher** - To find similar issues or past implementations
+   - **codebase_locator** - To find more specific files (e.g., "find all files that handle [specific component]")
+   - **codebase_analyzer** - To understand implementation details (e.g., "analyze how [system] works")
+   - **codebase_pattern_finder** - To find similar features we can model after
 
    Each agent knows how to:
    - Find the right files and code patterns
