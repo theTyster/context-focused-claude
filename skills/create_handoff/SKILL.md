@@ -72,7 +72,7 @@ type: implementation_strategy
 Once this is completed, you should respond to the user with the template between <template_response></template_response> XML tags. do NOT include the tags in your response.
 
 <template_response>
-Handoff created and synced! You can resume from this handoff in a new session with the following command:
+Handoff created! You can resume from this handoff in a new session with the following command:
 
 ```bash
 /resume_handoff path/to/handoff.md
