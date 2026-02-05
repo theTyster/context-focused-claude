@@ -1,0 +1,23 @@
+{
+  "name": "context-management-plugins",
+  "version": "1.0.0",
+  "description": "Independent context-management system for Claude Code using parallel sub-agents and structured documentation.",
+  "main": "convert-claude-plugins-to-opencode.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "convert": "node convert-claude-plugins-to-opencode.js --type=all",
+    "convert:agents": "node convert-claude-plugins-to-opencode.js --type=agents",
+    "convert:skills": "node convert-claude-plugins-to-opencode.js --type=skills"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/theTyster/context-focused-claude"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.6.2",
+    "inquirer": "^13.2.2"
+  }
+}

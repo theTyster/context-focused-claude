@@ -92,3 +92,63 @@ thoughts/
 ├── handoffs/       # Session handoff documents
 └── tickets/        # Issue and ticket analysis
 ```
+
+## OpenCode Conversion
+
+If you use [OpenCode](https://opencode.ai), you can convert this plugin's agents and skills to OpenCode format.
+
+### Prerequisites
+
+You need Node.js installed on your system. To check if you have it:
+
+```bash
+node --version
+```
+
+If you see a version number (like `v20.10.0`), you're good to go. If not, install Node.js from [nodejs.org](https://nodejs.org) (download the LTS version).
+
+### Running the Conversion
+
+1. **Open a terminal** and navigate to where you cloned this repository:
+   ```bash
+   cd /path/to/context-management-plugins
+   ```
+
+2. **Run the conversion script** using one of these commands:
+
+   ```bash
+   # Convert agents only (6 agents with limited tool access)
+   node convert-claude-plugins-to-opencode.js
+
+   # Convert skills only (7 skills with full tool access)
+   node convert-claude-plugins-to-opencode.js --type=skills
+
+   # Convert both agents and skills (recommended)
+   node convert-claude-plugins-to-opencode.js --type=all
+   ```
+
+3. **That's it!** The converted files are saved to `~/.config/opencode/agents/`
+
+### What Gets Converted
+
+| Type | Count | Tool Access | Source Location |
+|------|-------|-------------|-----------------|
+| Agents | 6 | Limited (read-only research) | `./agents/*.md` |
+| Skills | 7 | Full (all tools enabled) | `./skills/*/SKILL.md` |
+
+### Using in OpenCode
+
+After conversion, you can invoke your agents in OpenCode by typing `@` followed by the agent name:
+
+```
+@codebase_analyzer explain how authentication works in this project
+@create_plan implement user profile editing
+```
+
+### Custom Output Location
+
+To save converted files to a different location:
+
+```bash
+node convert-agents-to-opencode.js --type=all ./agents /custom/output/path
+```
