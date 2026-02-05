@@ -23,10 +23,11 @@ cc plugin add https://github.com/yourusername/context-focused-claude
 
 ## Components
 
-### Skills (12 total)
+### Skills (13 total)
 
-The plugin includes 12 specialized skills:
+The plugin includes 13 specialized skills:
 
+- **mega_ralph**: Orchestrates autonomous development workflow from research through implementation with validation and failure recovery
 - **create_plan**: Enables an autonomous agent to perform thorough codebase research and generate a detailed, actionable implementation plan for other sub-agents to execute.
 - **create_plan_interactively**: Generates detailed, phased implementation plans by conducting thorough codebase research and iteratively collaborating with a user to define a clear and verifiable engineering approach.
 - **implement_plan**: Executes phased technical plans by implementing the specified code changes and verifying the success criteria for each step.
@@ -52,6 +53,26 @@ Specialized sub-agents for autonomous tasks:
 - **web_search_researcher**: Researches modern information from the web
 
 ## Usage
+
+### Autonomous Development Workflow (mega_ralph)
+
+For complete end-to-end autonomous development:
+
+```bash
+/mega_ralph Add rate limiting to API endpoints
+```
+
+The skill will automatically:
+1. **Research**: Spawn parallel sub-agents to understand the codebase
+2. **Plan**: Create a detailed, phased implementation plan
+3. **Implement**: Execute each phase with automated verification
+4. **Validate**: Run comprehensive validation checks
+5. **Recover**: Create handoff documents on failure for session restart
+
+Resume from a failure handoff:
+```bash
+/mega_ralph thoughts/handoffs/2026-02-05_10-30-00_mega-ralph-feature.md
+```
 
 ### Creating an Implementation Plan
 
