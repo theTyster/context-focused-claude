@@ -1,7 +1,19 @@
 ---
-name: create_plan
 description: Use when creating autonomous implementation plans through thorough research for sub-agents
-model: opus
+mode: subagent
+tools:
+  read: true
+  write: true
+  edit: true
+  bash: true
+  grep: true
+  glob: true
+  list: true
+  websearch: true
+  webfetch: true
+  task: true
+  todowrite: true
+  todoread: true
 ---
 
 # Implementation Plan
@@ -390,6 +402,6 @@ After completing the plan:
    - Number of phases
    - Key implementation areas
    - Estimated complexity
-   - Next steps (typically `/implement_plan`)
+   - Next steps (typically `@implement_plan`)
 
 Remember: The goal is a complete, actionable plan that an implementation agent can execute without needing additional clarification.

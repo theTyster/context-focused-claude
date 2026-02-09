@@ -1,7 +1,19 @@
 ---
-name: research_codebase
 description: Use when documenting codebase as-is without evaluation or recommendations
-model: opus
+mode: subagent
+tools:
+  read: true
+  write: true
+  edit: true
+  bash: true
+  grep: true
+  glob: true
+  list: true
+  websearch: true
+  webfetch: true
+  task: true
+  todowrite: true
+  todoread: true
 ---
 
 # Research Codebase

@@ -1,6 +1,19 @@
 ---
-name: create_handoff
 description: Use when creating handoff document for transferring work to another session
+mode: subagent
+tools:
+  read: true
+  write: true
+  edit: true
+  bash: true
+  grep: true
+  glob: true
+  list: true
+  websearch: true
+  webfetch: true
+  task: true
+  todowrite: true
+  todoread: true
 ---
 
 # Create Handoff
@@ -74,7 +87,7 @@ Once this is completed, you should respond to the user with the template between
 Handoff created! You can resume from this handoff in a new session with the following command:
 
 ```bash
-/resume_handoff path/to/handoff.md
+@resume_handoff path/to/handoff.md
 ```
 </template_response>
 
@@ -84,7 +97,7 @@ for example (between <example_response></example_response> XML tags - do NOT inc
 Handoff created and synced! You can resume from this handoff in a new session with the following command:
 
 ```bash
-/resume_handoff thoughts/handoffs/2025-01-08_13-44-55_create-context-compaction.md
+@resume_handoff thoughts/handoffs/2025-01-08_13-44-55_create-context-compaction.md
 ```
 </example_response>
 

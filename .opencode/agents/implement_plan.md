@@ -1,6 +1,19 @@
 ---
-name: implement_plan
 description: Use when implementing technical plans from thoughts/plans with verification
+mode: subagent
+tools:
+  read: true
+  write: true
+  edit: true
+  bash: true
+  grep: true
+  glob: true
+  list: true
+  websearch: true
+  webfetch: true
+  task: true
+  todowrite: true
+  todoread: true
 ---
 
 # Implement Plan

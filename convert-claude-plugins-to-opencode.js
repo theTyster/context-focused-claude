@@ -33,7 +33,7 @@ const TOOL_MAPPING = {
   'Bash': 'bash',
   'Grep': 'grep',
   'Glob': 'glob',
-  'LS': 'bash', // LS commands typically use bash
+  'LS': 'list', // LS maps to OpenCode's list tool
   'WebSearch': 'websearch',
   'WebFetch': 'webfetch',
   'Task': 'task',
@@ -123,18 +123,43 @@ function parseClaudeCodeSkill(content, skillName) {
   return { metadata, body: body.trim() };
 }
 
+// Slash command to @mention mappings (longest match first to avoid clobbering)
+const SLASH_TO_MENTION = [
+  ['/create_plan_interactively', '@create_plan_interactively'],
+  ['/research_codebase', '@research_codebase'],
+  ['/implement_plan', '@implement_plan'],
+  ['/validate_plan', '@validate_plan'],
+  ['/resume_handoff', '@resume_handoff'],
+  ['/create_handoff', '@create_handoff'],
+  ['/create_plan', '@create_plan'],
+  ['/mega_ralph', '@mega_ralph'],
+  ['/describe_pr', '@describe_pr'],
+  ['/commit', '@commit'],
+];
+
+function transformBodyForOpenCode(body) {
+  let result = body;
+
+  // Replace slash commands with @mentions (longest match first)
+  for (const [slash, mention] of SLASH_TO_MENTION) {
+    result = result.split(slash).join(mention);
+  }
+
+  // Replace backtick-wrapped tool names using TOOL_MAPPING
+  for (const [claudeName, opencodeName] of Object.entries(TOOL_MAPPING)) {
+    const pattern = new RegExp('`' + claudeName + '`', 'g');
+    result = result.replace(pattern, '`' + opencodeName + '`');
+  }
+
+  return result;
+}
+
 function convertSkillToOpenCodeFormat(skill) {
   const { metadata, body } = skill;
+  const mode = metadata.name === 'mega_ralph' ? 'primary' : 'subagent';
   let yaml = '---\n';
   yaml += `description: ${metadata.description}\n`;
-  yaml += `mode: subagent\n`;
-
-  if (metadata.model) {
-    const convertedModel = convertModel(metadata.model);
-    if (convertedModel) {
-      yaml += `model: ${convertedModel}\n`;
-    }
-  }
+  yaml += `mode: ${mode}\n`;
 
   yaml += 'tools:\n';
   const tools = getAllToolsEnabled();
@@ -142,7 +167,7 @@ function convertSkillToOpenCodeFormat(skill) {
     yaml += `  ${tool}: ${enabled}\n`;
   });
   yaml += '---\n\n';
-  return yaml + body;
+  return yaml + transformBodyForOpenCode(body);
 }
 
 function convertModel(modelString) {
@@ -165,23 +190,11 @@ function convertToOpenCodeFormat(claudeAgent) {
     opencodeFrontmatter.tools = convertTools(metadata.tools);
   }
   
-  // Add model if specified
-  if (metadata.model) {
-    const convertedModel = convertModel(metadata.model);
-    if (convertedModel) {
-      opencodeFrontmatter.model = convertedModel;
-    }
-  }
-  
   // Build YAML frontmatter
   let yaml = '---\n';
   yaml += `description: ${opencodeFrontmatter.description}\n`;
   yaml += `mode: ${opencodeFrontmatter.mode}\n`;
-  
-  if (opencodeFrontmatter.model) {
-    yaml += `model: ${opencodeFrontmatter.model}\n`;
-  }
-  
+
   if (opencodeFrontmatter.tools && Object.keys(opencodeFrontmatter.tools).length > 0) {
     yaml += 'tools:\n';
     Object.entries(opencodeFrontmatter.tools).forEach(([tool, enabled]) => {
@@ -190,8 +203,8 @@ function convertToOpenCodeFormat(claudeAgent) {
   }
   
   yaml += '---\n\n';
-  
-  return yaml + body;
+
+  return yaml + transformBodyForOpenCode(body);
 }
 
 function convertFile(inputPath, outputPath) {
@@ -303,7 +316,7 @@ function main() {
     process.exit(1);
   }
 
-  const outputDir = options.outputDir || path.join(os.homedir(), '.config', 'opencode', 'agents');
+  const outputDir = options.outputDir || path.join(__dirname, '.opencode', 'agents');
   console.log('Claude Code to OpenCode Converter');
   console.log('==================================\n');
   console.log(`Conversion type: ${options.type}`);
@@ -344,5 +357,6 @@ module.exports = {
   convertTools,
   convertModel,
   getAllToolsEnabled,
-  discoverSkills
+  discoverSkills,
+  transformBodyForOpenCode
 };

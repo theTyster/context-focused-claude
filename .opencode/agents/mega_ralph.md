@@ -1,7 +1,19 @@
 ---
-name: mega_ralph
 description: Orchestrates autonomous development workflow from research through implementation with validation and failure recovery
-model: opus
+mode: primary
+tools:
+  read: true
+  write: true
+  edit: true
+  bash: true
+  grep: true
+  glob: true
+  list: true
+  websearch: true
+  webfetch: true
+  task: true
+  todowrite: true
+  todoread: true
 ---
 
 # Mega Ralph: Autonomous Development Workflow
@@ -477,7 +489,7 @@ topic: "[Task Description] - Mega Ralph Handoff"
 2. [Alternative approach to try]
 3. [Additional research if needed]
 
-To resume: `/mega_ralph [this handoff path]`
+To resume: `@mega_ralph [this handoff path]`
 
 ## Failure Context
 
@@ -508,7 +520,7 @@ Workflow paused due to failures. Handoff created at:
 [handoff_path]
 
 To resume in a new session with fresh context, run:
-/mega_ralph [handoff_path]
+@mega_ralph [handoff_path]
 
 Summary of issues:
 - [Brief failure summary]
@@ -554,11 +566,11 @@ Recommended approach for next attempt:
 
 ```bash
 # Fresh start with task description
-/mega_ralph Add rate limiting to API endpoints
+@mega_ralph Add rate limiting to API endpoints
 
 # Resume from previous handoff
-/mega_ralph thoughts/handoffs/2026-02-05_10-30-00_mega-ralph-rate-limiting.md
+@mega_ralph thoughts/handoffs/2026-02-05_10-30-00_mega-ralph-rate-limiting.md
 
 # Interactive prompt
-/mega_ralph
+@mega_ralph
 ```

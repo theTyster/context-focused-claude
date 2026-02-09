@@ -1,6 +1,19 @@
 ---
-name: resume_handoff
 description: Use when resuming work from handoff document with context analysis and validation
+mode: subagent
+tools:
+  read: true
+  write: true
+  edit: true
+  bash: true
+  grep: true
+  glob: true
+  list: true
+  websearch: true
+  webfetch: true
+  task: true
+  todowrite: true
+  todoread: true
 ---
 
 # Resume work from a handoff document
@@ -35,9 +48,9 @@ I'll help you resume work from a handoff document. Let me find the available han
 
 Which handoff would you like to resume from?
 
-Tip: You can invoke this command directly with a handoff path: `/resume_handoff thoughts/handoffs/YYYY-MM-DD_HH-MM-SS_description.md`
+Tip: You can invoke this command directly with a handoff path: `@resume_handoff thoughts/handoffs/YYYY-MM-DD_HH-MM-SS_description.md`
 
-or using a keyword to search for handoffs: `/resume_handoff keyword`
+or using a keyword to search for handoffs: `@resume_handoff keyword`
 ```
 
 Then wait for the user's input.
@@ -200,7 +213,7 @@ Then wait for the user's input.
 ## Example Interaction Flow
 
 ```
-User: /resume_handoff specification/feature/handoffs/handoff-0.md
+User: @resume_handoff specification/feature/handoffs/handoff-0.md
 Assistant: Let me read and analyze that handoff document...
 
 [Reads handoff completely]

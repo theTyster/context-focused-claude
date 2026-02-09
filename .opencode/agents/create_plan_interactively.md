@@ -1,7 +1,19 @@
 ---
-name: create_plan_interactively
 description: Use when creating detailed implementation plans with thorough research and iteration
-model: opus
+mode: subagent
+tools:
+  read: true
+  write: true
+  edit: true
+  bash: true
+  grep: true
+  glob: true
+  list: true
+  websearch: true
+  webfetch: true
+  task: true
+  todowrite: true
+  todoread: true
 ---
 
 # Implementation Plan
@@ -28,8 +40,8 @@ Please provide:
 
 I'll analyze this information and work with you to create a comprehensive plan.
 
-Tip: You can also invoke this command with a ticket file directly: `/create_plan thoughts/tickets/eng_1234.md`
-For deeper analysis, try: `/create_plan think deeply about thoughts/tickets/eng_1234.md`
+Tip: You can also invoke this command with a ticket file directly: `@create_plan thoughts/tickets/eng_1234.md`
+For deeper analysis, try: `@create_plan think deeply about thoughts/tickets/eng_1234.md`
 ```
 
 Then wait for the user's input.
@@ -436,7 +448,7 @@ tasks = [
 ## Example Interaction Flow
 
 ```
-User: /create_plan
+User: @create_plan
 Assistant: I'll help you create a detailed implementation plan...
 
 User: We need to add parent-child tracking for Claude sub-tasks. See thoughts/tickets/eng_1478.md

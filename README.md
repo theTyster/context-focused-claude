@@ -23,9 +23,9 @@ cc plugin add https://github.com/yourusername/context-focused-claude
 
 ## Components
 
-### Skills (13 total)
+### Skills (8 total)
 
-The plugin includes 13 specialized skills:
+The plugin includes 8 specialized skills:
 
 - **mega_ralph**: Orchestrates autonomous development workflow from research through implementation with validation and failure recovery
 - **create_plan**: Enables an autonomous agent to perform thorough codebase research and generate a detailed, actionable implementation plan for other sub-agents to execute.
@@ -34,12 +34,7 @@ The plugin includes 13 specialized skills:
 - **validate_plan**: Validates a software implementation against its development plan, verifies success criteria, and identifies any deviations or potential issues.
 - **create_handoff**: Creates a structured markdown document summarizing the current work session, including tasks, recent changes, and next steps, to enable a seamless handoff to another agent.
 - **resume_handoff**: Interactively resumes a task by reading a specified handoff document, analyzing its context, verifying the current state of the codebase against the document's claims, and creating an action plan to continue the work.
-- **describe_pr**: Generates a comprehensive pull request description by analyzing the current branch's changes, filling out a repository-specific template, and automatically running verification commands.
-- **describe_pr_nt**: Non-interactively generates a comprehensive pull request description by analyzing the current branch's changes and filling out a repository-specific template.
-- **ci_describe_pr**: Automates the generation of comprehensive pull request descriptions by analyzing git commits, summarizing changes, and filling out the repository's standard PR template, making it ideal for use in CI environments.
-- **commit**: Enables an agent to intelligently group file changes, draft descriptive messages, and create git commits on the user's behalf after receiving their approval.
-- **ci_commit**: Enables an AI agent to autonomously create clear and atomic git commits for session changes within a CI environment.
-- **research-codebase**: Researches and documents the current state of a codebase in response to a user's query by spawning parallel sub-agents and synthesizing their findings into a purely descriptive technical report.
+- **research_codebase**: Researches and documents the current state of a codebase in response to a user's query by spawning parallel sub-agents and synthesizing their findings into a purely descriptive technical report.
 
 ### Agents (6 total)
 
@@ -141,29 +136,38 @@ If you see a version number (like `v20.10.0`), you're good to go. If not, instal
    # Convert agents only (6 agents with limited tool access)
    node convert-claude-plugins-to-opencode.js
 
-   # Convert skills only (7 skills with full tool access)
+   # Convert skills only (8 skills with full tool access)
    node convert-claude-plugins-to-opencode.js --type=skills
 
    # Convert both agents and skills (recommended)
    node convert-claude-plugins-to-opencode.js --type=all
    ```
 
-3. **That's it!** The converted files are saved to `~/.config/opencode/agents/`
+3. **Copy to global config** so agents are available in all OpenCode projects:
+
+   ```bash
+   cp .opencode/agents/*.md ~/.config/opencode/agents/
+   ```
+
+   The converted files are also kept in `./.opencode/agents/` (in-repo, version-controllable). The project-local copy works when OpenCode is launched from this directory; the global copy at `~/.config/opencode/agents/` makes them available everywhere.
 
 ### What Gets Converted
 
-| Type | Count | Tool Access | Source Location |
-|------|-------|-------------|-----------------|
-| Agents | 6 | Limited (read-only research) | `./agents/*.md` |
-| Skills | 7 | Full (all tools enabled) | `./skills/*/SKILL.md` |
+| Type | Count | Tool Access | OpenCode Mode | Source Location |
+|------|-------|-------------|---------------|-----------------|
+| Skills | 8 | Full (all tools enabled) | `primary` (tab switcher) | `./skills/*/SKILL.md` |
+| Agents | 6 | Limited (read-only research) | `subagent` (task-spawned) | `./agents/*.md` |
+
+Skills become **primary agents** — they appear in the OpenCode tab switcher and are invoked via `@agent_name`. Agents become **subagents** — they are spawned by other agents via the `task` tool.
 
 ### Using in OpenCode
 
-After conversion, you can invoke your agents in OpenCode by typing `@` followed by the agent name:
+After conversion, invoke primary agents in OpenCode by typing `@` followed by the agent name:
 
 ```
-@codebase_analyzer explain how authentication works in this project
+@mega_ralph Add rate limiting to API endpoints
 @create_plan implement user profile editing
+@research_codebase explain how authentication works in this project
 ```
 
 ### Custom Output Location
@@ -171,5 +175,5 @@ After conversion, you can invoke your agents in OpenCode by typing `@` followed 
 To save converted files to a different location:
 
 ```bash
-node convert-agents-to-opencode.js --type=all ./agents /custom/output/path
+node convert-claude-plugins-to-opencode.js --type=all ./agents /custom/output/path
 ```
