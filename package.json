@@ -5,9 +5,12 @@
   "main": "convert-claude-plugins-to-opencode.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "convert": "node convert-claude-plugins-to-opencode.js --type=all",
-    "convert:agents": "node convert-claude-plugins-to-opencode.js --type=agents",
-    "convert:skills": "node convert-claude-plugins-to-opencode.js --type=skills"
+    "convert:opencode": "node convert-claude-plugins-to-opencode.js --type=all",
+    "convert:opencode:agents": "node convert-claude-plugins-to-opencode.js --type=agents",
+    "convert:opencode:skills": "node convert-claude-plugins-to-opencode.js --type=skills",
+    "convert:kiro": "node convert-claude-plugins-to-kiro.js --type=all",
+    "convert:kiro:agents": "node convert-claude-plugins-to-kiro.js --type=agents",
+    "convert:kiro:skills": "node convert-claude-plugins-to-kiro.js --type=skills"
   },
   "repository": {
     "type": "git",

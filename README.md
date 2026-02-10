@@ -109,6 +109,77 @@ thoughts/
 └── tickets/        # Issue and ticket analysis
 ```
 
+## Kiro CLI Conversion
+
+If you use [Kiro CLI](https://kiro.dev), you can convert this plugin's agents and skills to Kiro format.
+
+### Prerequisites
+
+You need Node.js installed on your system. To check if you have it:
+
+```bash
+node --version
+```
+
+If you see a version number (like `v20.10.0`), you're good to go. If not, install Node.js from [nodejs.org](https://nodejs.org) (download the LTS version).
+
+### Running the Conversion
+
+1. **Open a terminal** and navigate to where you cloned this repository:
+   ```bash
+   cd /path/to/context-focused-claude
+   ```
+
+2. **Run the conversion script**:
+
+   ```bash
+   # Convert both agents and skills (recommended)
+   node convert-claude-plugins-to-kiro.js
+
+   # Convert agents only (6 agents with limited tool access)
+   node convert-claude-plugins-to-kiro.js --type=agents
+
+   # Convert skills only (8 skills with full tool access)
+   node convert-claude-plugins-to-kiro.js --type=skills
+   ```
+
+3. **Copy to global config** so agents are available in all Kiro projects:
+
+   ```bash
+   cp .kiro/agents/*.json ~/.kiro/agents/
+   ```
+
+   The converted files are kept in `./.kiro/agents/` (in-repo, version-controllable). The project-local copy works when Kiro is launched from this directory; the global copy at `~/.kiro/agents/` makes them available everywhere.
+
+### What Gets Converted
+
+| Type | Count | Tool Access | Source Location |
+|------|-------|-------------|-----------------|
+| Skills | 8 | Full (fs_read, fs_write, execute_bash, web_search, web_fetch, todo_list) | `./skills/*/SKILL.md` |
+| Agents | 6 | Limited (only tools specified in frontmatter) | `./agents/*.md` |
+
+All become **Kiro agents** — JSON configuration files with different tool permissions. Skills have broader tool access for workflow orchestration, while agents have restricted access for focused research tasks.
+
+### Using in Kiro CLI
+
+After conversion, use the `/agent` command to switch between agents:
+
+```bash
+/agent swap mega_ralph
+/agent swap create_plan
+/agent swap research_codebase
+```
+
+Or configure keyboard shortcuts in the agent JSON files.
+
+### Custom Output Location
+
+To save converted files to a different location:
+
+```bash
+node convert-claude-plugins-to-kiro.js /custom/output/path
+```
+
 ## OpenCode Conversion
 
 If you use [OpenCode](https://opencode.ai), you can convert this plugin's agents and skills to OpenCode format.
@@ -127,7 +198,7 @@ If you see a version number (like `v20.10.0`), you're good to go. If not, instal
 
 1. **Open a terminal** and navigate to where you cloned this repository:
    ```bash
-   cd /path/to/context-management-plugins
+   cd /path/to/context-focused-claude
    ```
 
 2. **Run the conversion script** using one of these commands:
