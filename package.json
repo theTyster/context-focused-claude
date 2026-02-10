@@ -5,9 +5,12 @@
   "main": "convert-claude-plugins-to-opencode.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "convert": "node convert-claude-plugins-to-opencode.js --type=all",
-    "convert:agents": "node convert-claude-plugins-to-opencode.js --type=agents",
-    "convert:skills": "node convert-claude-plugins-to-opencode.js --type=skills"
+    "convert:oc": "node convert-claude-plugins-to-opencode.js --type=all",
+    "convert:oc:agents": "node convert-claude-plugins-to-opencode.js --type=agents",
+    "convert:oc:skills": "node convert-claude-plugins-to-opencode.js --type=skills",
+    "convert:gemini": "node convert-to-gemini.js --type=all",
+    "convert:gemini:agents": "node convert-to-gemini.js --type=agents",
+    "convert:gemini:skills": "node convert-to-gemini.js --type=skills"
   },
   "repository": {
     "type": "git",

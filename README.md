@@ -177,3 +177,57 @@ To save converted files to a different location:
 ```bash
 node convert-claude-plugins-to-opencode.js --type=all ./agents /custom/output/path
 ```
+
+## Gemini CLI Conversion
+
+If you use Google's [Gemini CLI](https://github.com/google-gemini/gemini-cli), you can convert this plugin's agents and skills to Gemini format.
+
+### Running the Conversion
+
+```bash
+# Convert both agents and skills (recommended)
+npm run convert:gemini
+
+# Or convert separately
+npm run convert:gemini:agents   # 6 sub-agents only
+npm run convert:gemini:skills   # 8 skills only
+```
+
+Output is saved to `.gemini/agents/` and `.gemini/skills/` directories.
+
+### What Gets Converted
+
+| Type | Count | Output Location | Key Differences |
+|------|-------|-----------------|-----------------|
+| Agents | 6 | `.gemini/agents/*.md` | Tools as YAML arrays: `tools: [read_file, glob]` |
+| Skills | 8 | `.gemini/skills/*/SKILL.md` | Minimal frontmatter (name + description only) |
+
+Tool names are mapped to Gemini equivalents (e.g., `Read` → `read_file`, `Bash` → `run_shell_command`).
+
+### Using in Gemini CLI
+
+**Natural Language (Recommended):**
+Skills activate automatically when your request matches their description:
+
+```bash
+# Just describe what you want
+"Create an implementation plan for adding rate limiting"
+"Research how authentication works in this codebase"
+```
+
+**Internal Function Syntax:**
+When the model activates a skill, it uses this syntax internally:
+
+```python
+activate_skill(name="research_codebase")    # Only parameter is name (required)
+activate_skill(name="mega_ralph")
+```
+
+**Terminal Commands:**
+```bash
+gemini skills activate <name>     # Explicitly activate a skill
+gemini skills list                # View all available skills
+gemini skills enable <name>       # Re-enable a disabled skill
+```
+
+Learn more in the [Gemini CLI Skills documentation](https://geminicli.com/docs/cli/skills/).
