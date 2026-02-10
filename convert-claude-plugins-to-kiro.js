@@ -79,9 +79,10 @@ function transformPrompt(body) {
   return result;
 }
 
-function convertToKiroFormat(parsed, isSkill) {
+function convertToKiroFormat(parsed, isSkill, name) {
   const { metadata, body } = parsed;
   const kiroAgent = {
+    name: name,
     description: metadata.description,
     prompt: transformPrompt(body),
     tools: isSkill ? ['fs_read', 'fs_write', 'execute_bash', 'web_search', 'web_fetch', 'todo_list'] : convertTools(metadata.tools),
@@ -101,7 +102,8 @@ function convertFile(inputPath, outputPath, isSkill) {
   try {
     const content = fs.readFileSync(inputPath, 'utf8');
     const parsed = parseClaudeCodeFile(content);
-    const kiroAgent = convertToKiroFormat(parsed, isSkill);
+    const name = path.basename(outputPath, '.json');
+    const kiroAgent = convertToKiroFormat(parsed, isSkill, name);
     fs.writeFileSync(outputPath, JSON.stringify(kiroAgent, null, 2), 'utf8');
     console.log(`  ✓ ${outputPath}`);
     return true;
