@@ -19,9 +19,9 @@ const TOOL_MAPPING = {
 };
 
 const MODEL_MAPPING = {
-  'sonnet': 'claude-sonnet-4',
-  'haiku': 'claude-haiku-4',
-  'opus': 'claude-opus-4'
+  'sonnet': 'claude-sonnet-4.5',
+  'haiku': 'claude-haiku-4.5',
+  'opus': 'claude-opus-4.6'
 };
 
 const SLASH_REPLACEMENTS = [
