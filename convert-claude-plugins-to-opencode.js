@@ -125,16 +125,12 @@ function parseClaudeCodeSkill(content, skillName) {
 
 // Slash command to @mention mappings (longest match first to avoid clobbering)
 const SLASH_TO_MENTION = [
-  ['/create_plan_interactively', '@create_plan_interactively'],
   ['/research_codebase', '@research_codebase'],
+  ['/create_plan', '@create_plan'],
   ['/implement_plan', '@implement_plan'],
   ['/validate_plan', '@validate_plan'],
   ['/resume_handoff', '@resume_handoff'],
   ['/create_handoff', '@create_handoff'],
-  ['/create_plan', '@create_plan'],
-  ['/mega_ralph', '@mega_ralph'],
-  ['/describe_pr', '@describe_pr'],
-  ['/commit', '@commit'],
 ];
 
 function transformBodyForOpenCode(body) {
