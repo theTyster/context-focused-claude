@@ -5,163 +5,108 @@ description: Validate implementation against plan, verify success criteria, iden
 
 # Validate Plan
 
-You are tasked with validating that an implementation plan was correctly executed, verifying all success criteria and identifying any deviations or issues.
+You are tasked with documenting the results of an implementation test plan. You will read the plan, run its validation checkpoints, verify its success criteria, and report failure events.
 
-## Initial Setup
+You are a **validator, not a fixer**. If something fails, report it clearly — do not attempt to fix it.
 
-When invoked:
-1. **Determine context** - Are you in an existing conversation or starting fresh?
-   - If existing: Review what was implemented in this session
-   - If fresh: Need to discover what was done through git and codebase analysis
+- DO NOT suggest improvements or changes unless the user explicitly asks for them
+- DO NOT propose future enhancements unless the user explicitly asks for them
+- DO NOT critique the implementation or identify problems with the implementation
+- DO NOT recommend refactoring, optimization, or architectural changes
+- ONLY describe the results of the implementation test plan whether it passed or what ocurred if it failed
 
-2. **Locate the plan**:
-   - If plan path provided, use it
-   - Otherwise, search recent commits for plan references or ask user
+## Getting Started
 
-3. **Gather implementation evidence**:
-   ```bash
-   # Check recent commits
-   git log --oneline -n 20
-   git diff HEAD~N..HEAD  # Where N covers implementation commits
-
-   # Run comprehensive checks
-   cd $(git rev-parse --show-toplevel) && make check test
-   ```
+When given a plan path:
+- Read the plan document completely
+- Identify these sections:
+  - **Desired End State** — the specification of what should exist after implementation
+  - **Testing and Validation Strategy** — contains Success Criteria, Validation Checkpoints, and any test instructions
+  - **Current State** — check which phases were completed during implementation
+- If no plan path is provided, ask for one.
 
 ## Validation Process
 
-### Step 1: Context Discovery
+Create a to-do list to work through validation in this order:
 
-If starting fresh or need more context:
+### 1. Automated Checkpoints
 
-1. **Read the implementation plan** completely
-2. **Identify what should have changed**:
-   - List all files that should be modified
-   - Note all success criteria (automated and manual)
-   - Identify key functionality to verify
+Find every Validation Checkpoint that includes a command (backtick-wrapped, e.g. `make test`, `npm run typecheck`).
 
-3. **Spawn parallel research tasks** to discover implementation:
-   ```
-   Task 1 - Verify database changes:
-   Research if migration [N] was added and schema changes match plan.
-   Check: migration files, schema version, table structure
-   Return: What was implemented vs what plan specified
+- Run each command and record the result
+- **Run all checks** — do not stop on the first failure
+- Record the exact output for any failures
 
-   Task 2 - Verify code changes:
-   Find all modified files related to [feature].
-   Compare actual changes to plan specifications.
-   Return: File-by-file comparison of planned vs actual
+### 2. Success Criteria Verification
 
-   Task 3 - Verify test coverage:
-   Check if tests were added/modified as specified.
-   Run test commands and capture results.
-   Return: Test status and any missing coverage
-   ```
+For each item in the **Success Criteria** section:
 
-### Step 2: Systematic Validation
+- Verify it programmatically where possible (read files, grep for expected content, check file existence, run commands)
+- For criteria that can't be checked programmatically, note them for manual verification
+- Record pass/fail for each criterion
 
-For each phase in the plan:
+### 3. Desired End State Verification
 
-1. **Check completion status**:
-   - Look for checkmarks in the plan (- [x])
-   - Verify the actual code matches claimed completion
+Compare the current state of the codebase against the **Desired End State** section:
 
-2. **Run automated verification**:
-   - Execute each command from "Automated Verification"
-   - Document pass/fail status
-   - If failures, investigate root cause
+- Verify each claim made in the specification
+- Check that files, structures, and behaviors described actually exist
+- Note any discrepancies
 
-3. **Assess manual criteria**:
-   - List what needs manual testing
-   - Provide clear steps for user verification
+### 5. Manual Verification
 
-4. **Think deeply about edge cases**:
-   - Were error conditions handled?
-   - Are there missing validations?
-   - Could the implementation break existing functionality?
+Collect any checkpoints which require human judgment (no associated command or provided testing framework):
 
-### Step 3: Generate Validation Report
+- Present them as a checklist to the user
 
-Create comprehensive validation summary:
+### 4. Report Results
 
-```markdown
-## Validation Report: [Plan Name]
+After running all checks, update the plan document:
 
-### Implementation Status
-✓ Phase 1: [Name] - Fully implemented
-✓ Phase 2: [Name] - Fully implemented
-⚠️ Phase 3: [Name] - Partially implemented (see issues)
+1. **Check off passed validation checkpoints** — change `- [ ]` to `- [x]` for each checkpoint that passed
+2. **Update the Validation State** in the References section — change `Validation State: untested` to `Validation State: passed` or `Validation State: failed`
+3. **Update the plan frontmatter** — if all checks pass, set `status: complete`; if any fail, leave as `status: in-progress`
 
-### Automated Verification Results
-✓ Build passes: `make build`
-✓ Tests pass: `make test`
-✗ Linting issues: `make lint` (3 warnings)
+If the validation does not pass:
+**Write out the detailed results**:
+ - Write to `thoughts/validations/YYYY-MM-DD-[ticket]-description.md`
 
-### Code Review Findings
+ **Filename format**:
+ - With ticket: `2025-01-08-ENG-1478-parent-child-tracking.md`
+ - Without ticket: `2025-01-08-improve-error-handling.md`
 
-#### Matches Plan:
-- Database migration correctly adds [table]
-- API endpoints implement specified methods
-- Error handling follows plan
+Here's a firm template describing what you should produce.
+```
+# Validation Results
 
-#### Deviations from Plan:
-- Used different variable names in [file:line]
-- Added extra validation in [file:line] (improvement)
+**Status**: PASSED | FAILED
 
-#### Potential Issues:
-- Missing index on foreign key could impact performance
-- No rollback handling in migration
+## Success Criteria: X/Y verified
+- [x] Criterion — verified
+- [ ] Criterion — FAILED: [brief reason]
 
-### Manual Testing Required:
-1. UI functionality:
-   - [ ] Verify [feature] appears correctly
-   - [ ] Test error states with invalid input
+## Automated Checkpoints
+### [x] Checkpoint description — passed
+[Passing criterion]
 
-2. Integration:
-   - [ ] Confirm works with existing [component]
-   - [ ] Check performance with large datasets
+### [ ] Checkpoint description — FAILED
+[ Description of failure ]
+[ Errors messages ]
+[ Other evidences ]
 
-### Recommendations:
-- Address linting warnings before merge
-- Consider adding integration test for [scenario]
-- Document new API endpoints
+### Manual Verifications:
+- [ ] Item — [why this must be verified manually]
+- [ ] Item — [why this must be verified manually]
+
 ```
 
-## Working with Existing Context
+## If Validation Succeeeds
+```
+✅ Validation was successful!
+```
 
-If you were part of the implementation:
-- Review the conversation history
-- Check your todo list for what was completed
-- Focus validation on work done in this session
-- Be honest about any shortcuts or incomplete items
+## Notes
 
-## Important Guidelines
-
-1. **Be thorough but practical** - Focus on what matters
-2. **Run all automated checks** - Don't skip verification commands
-3. **Document everything** - Both successes and issues
-4. **Think critically** - Question if the implementation truly solves the problem
-5. **Consider maintenance** - Will this be maintainable long-term?
-
-## Validation Checklist
-
-Always verify:
-- [ ] All phases marked complete are actually done
-- [ ] Automated tests pass
-- [ ] Code follows existing patterns
-- [ ] No regressions introduced
-- [ ] Error handling is robust
-- [ ] Documentation updated if needed
-- [ ] Manual test steps are clear
-
-## Relationship to Other Commands
-
-Recommended workflow:
-1. `/implement_plan` - Execute the implementation
-2. `/commit` - Create atomic commits for changes
-3. `/validate_plan` - Verify implementation correctness
-4. `/describe_pr` - Generate PR description
-
-The validation works best after commits are made, as it can analyze the git history to understand what was implemented.
-
-Remember: Good validation catches issues before they reach production. Be constructive but thorough in identifying gaps or improvements.
+- **Read files fully** — never use limit/offset parameters when reading plan documents or referenced files
+- Validation should be thorough but efficient — use sub-agents sparingly, only for targeted investigation if a failure is ambiguous
+- If the plan has no validation section, inform the user that the plan lacks validation criteria and cannot be validated
