@@ -6,7 +6,9 @@ Works best in brownfield code bases or when constructing a complex context windo
 
 ## Plugin Values
 
-This plugin treats LLMs as pure, stateless, reducer functions. Implementation looks like this:
+This plugin treats LLMs as pure, stateless, reducer functions. The objective of this plugin is to optimize a workflow by creating distinct phases for human interaction, and clear, linear operations for LLMs.
+
+## Implementation looks like this:
 
 1. **Research**
 
@@ -16,12 +18,12 @@ This plugin treats LLMs as pure, stateless, reducer functions. Implementation lo
 
 2. **Review Research**
 
-- [ ] Always read the summary
-- [ ] Included right files?
-- [ ] Analysis is accurate?
-- [ ] Do open questions point to more needed context?
+- Always read the summary
+- Included right files?
+- Analysis is accurate?
+- Do open questions point to more needed context?
 
-  2.5 **More Research?**
+2.5 **More Research?**
 
 ```
 /research_codebase "What documentation exists for {library} that {COMPONENT} uses?"
@@ -29,6 +31,8 @@ This plugin treats LLMs as pure, stateless, reducer functions. Implementation lo
 Here's some pre-existing research:
 @thoughts/research/{new_research_document}.md
 ```
+
+---
 
 3. **Planning**
 
@@ -38,12 +42,14 @@ Here's some pre-existing research:
 
 4. **Review Plan**
 
-- [ ] Does this solve the issue?
-- [ ] Does this plan creep out of scope?
-- [ ] Does it provide all necessary context?
-- [ ] Does it provide any distracting context?
-- [ ] What does it intend to modify?
-- [ ] How does this plan intend to verify the implementation is successful?
+- Does this solve the issue?
+- Does this plan creep out of scope?
+- Does it provide all necessary context?
+- Does it provide any distracting context?
+- What does it intend to modify?
+- How does this plan intend to verify the implementation is successful?
+
+--- 
 
 5. **Implement the Plan**
 
@@ -54,7 +60,7 @@ Here's some pre-existing research:
 6. **Validate the Plan**
 
 ```
-validate_plan @thoughts/plans/{new_plan}.md
+/validate_plan @thoughts/plans/{new_plan}.md
 ```
 
 ## Installation
