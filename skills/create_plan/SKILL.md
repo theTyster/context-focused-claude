@@ -17,66 +17,28 @@ You are tasked with autonomously creating detailed implementation plans through 
 
 **MANDATORY: Create a to-do list with the following items:**
 
-1. **Read all provided files completely**:
- - Ticket files (e.g., `thoughts/tickets/eng_1234.md`)
- - Research documents
- - Related implementation plans
- - Any JSON/data files mentioned
- - **IMPORTANT**: Use the Read tool WITHOUT limit/offset parameters to read entire files
- - **CRITICAL**: DO NOT spawn sub-tasks before reading these files yourself in the main context
- - **NEVER** read files partially - if a file is mentioned, read it completely
+1. **Spawn parallel sub-tasks to gather context**:
+ - Create multiple agents to read all mentioned file offsets concurrently
 
-2. **Spawn initial research tasks to gather context**:
- Before asking the user any questions, use specialized agents to research in parallel:
-
- - **codebase_locator** - Find all files related to the ticket/task
- - **codebase_analyzer** - Understand current implementation
- - **codebase_pattern_finder** - Find similar features to model after
-
- These agents will:
- - Find relevant source files, configs, and tests
- - Trace data flow and key functions
- - Return detailed explanations with file:line references
-
-4. **Spawn parallel sub-tasks for deeper research**:
- - Create multiple Task agents to research different aspects concurrently
- - Use the right agent for each type of research:
-
- **Consider using these agents:**
- - **codebase_locator** - To find more specific files (e.g., "find all files that handle [specific component]")
- - **codebase_analyzer** - To understand implementation details (e.g., "analyze how [system] works")
- - **codebase_pattern_finder** - To find similar features we can model after
-
- Each agent knows how to:
- - Find the right files and code patterns
- - Identify conventions and patterns to follow
- - Look for integration points and dependencies
- - Return specific file:line references
- - Find tests and examples
-
-5. **Read all identified files**:
- - After research tasks complete, read ALL files they identified
- - Read them FULLY into context
-
-6. **Analyze findings**:
+2. **Analyze findings**:
  - Identify current state and what needs to change
  - Note patterns and conventions to follow
  - Determine integration points and dependencies
  - Identify potential complexities and edge cases
 
-7. **Think about design decisions**:
+3. **Think about design decisions**:
  - Choose implementation approach based on research
  - Follow existing patterns in the codebase
  - Consider the most maintainable solution
  - Consider performance and scalability
  - Prioritize incremental, testable changes
 
-8. **Think about what is in scope**:
+4. **Think about what is in scope**:
  - List what IS included in this plan
  - List what is NOT included (prevent scope creep)
  - Identify dependencies on other systems
 
-9. **Write out the detailed plan**:
+5. **Write out the detailed plan**:
  - Write to `thoughts/plans/YYYY-MM-DD-[ticket]-description.md`
  
  **Filename format**:
