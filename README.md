@@ -106,9 +106,11 @@ Agents are specialized sub-agents with limited tool access. They run in isolated
 | thoughts_writer         | Writes content verbatim to the thoughts/ directory                   | Write, Edit, Read, Glob, LS                          |
 | web_search_researcher   | Researches questions using web search and page fetching              | WebSearch, WebFetch, TodoWrite, Read, Grep, Glob, LS |
 
-The `thoughts_writer` agent is unique: it is a **transcriber** with write access, used by skills to persist documents to the `thoughts/` directory.
 
-All codebase agents are **documentarians, not critics** — they describe what exists without suggesting improvements or identifying problems.
+Almost all codebase agents are **documentarians, not critics** — they describe what exists without suggesting improvements or identifying problems.
+
+The `thoughts_writer` agent is unique: it is a **document assembler** with write access, used by skills to persist documents to the `thoughts/` directory.
+
 
 ### Typical Workflow
 
@@ -116,7 +118,7 @@ All codebase agents are **documentarians, not critics** — they describe what e
 2. **Plan** — `/create_plan` to design an implementation approach
 3. **Implement** — `/implement_plan` to execute the plan phase-by-phase
 4. **Validate** — `/validate_plan` to verify the implementation
-5. **Handoff** — `/create_handoff` when your session is getting long; `/resume_handoff` in a new session
+5. **Handoff** — `/create_handoff` if your session is getting long; `/resume_handoff` in a new session
 
 ## Conversion Tools
 
