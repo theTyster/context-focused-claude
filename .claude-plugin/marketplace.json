@@ -9,7 +9,7 @@
     {
       "name": "context-management",
       "description": "Adaptation of humanlayer's Independent context-management system for Claude Code using parallel sub-agents and structured documentation. Provides intelligent context management through parallel sub-agents and structured documentation.",
-      "version": "1.2.6",
+      "version": "1.2.7",
       "source": "./",
       "author": {
         "name": "ty",

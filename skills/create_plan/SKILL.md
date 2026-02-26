@@ -8,8 +8,8 @@ model: opus
 You are tasked with autonomously creating detailed implementation plans based on thorough research and documentation which has already been performed.
 
 ## Core Principles
-1. **Autonomous Decision Making**: Make all decisions based on presented documentation
-2. **Precise Context Gathering**: Read mentioned files at their specified offsets
+1. **Autonomous Decision Making**: Make all decisions based on research findings
+2. **Thorough Research**: Use parallel sub-agents to gather comprehensive context
 3. **No User Interaction**: Complete the entire planning process independently
 4. **Actionable Output**: Produce a complete, ready-to-implement plan
 
@@ -17,9 +17,8 @@ You are tasked with autonomously creating detailed implementation plans based on
 
 **MANDATORY: Create a to-do list with the following items:**
 
-1. **Read named files at offsets**:
- - Read all mentioned files at specified offsets
- - Call multiple read tools in parallel to save time
+1. **Spawn parallel sub-tasks to gather context**:
+ - Create multiple agents to read all mentioned file offsets concurrently
 
 2. **Analyze findings**:
  - Identify current state and what needs to change
@@ -185,8 +184,8 @@ Please review and feel free to modify the plan document. Let me know if you woul
 ### 1. Be Thorough
 - Read all mentioned thoughts COMPLETELY before planning
 - Read actual code patterns from specified files at their designated offsets
-- Include specific file paths and line numbers
-- Write measurable success criteria
+- Read entire files if needed
+- Write explicit and detailed plans
 
 ### 2. Be Decisive
 - Make all design decisions based on research
