@@ -17,8 +17,8 @@ You are tasked with autonomously creating detailed implementation plans through 
 
 **MANDATORY: Create a to-do list with the following items:**
 
-1. **Spawn parallel sub-tasks to gather context**:
- - Create multiple agents to read all mentioned file offsets concurrently
+1. **Read named files at offsets**:
+ - Read all mentioned files at specified offsets
 
 2. **Analyze findings**:
  - Identify current state and what needs to change
