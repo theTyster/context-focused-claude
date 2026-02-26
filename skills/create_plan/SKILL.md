@@ -19,6 +19,7 @@ You are tasked with autonomously creating detailed implementation plans based on
 
 1. **Read named files at offsets**:
  - Read all mentioned files at specified offsets
+ - If you think it will save time, you can call these agents in parallel
 
 2. **Analyze findings**:
  - Identify current state and what needs to change
