@@ -103,7 +103,10 @@ Agents are specialized sub-agents with limited tool access. They run in isolated
 | codebase_pattern_finder | Finds similar implementations and code patterns with actual snippets | Grep, Glob, Read, LS                                 |
 | thoughts_locator        | Discovers relevant documents in the thoughts/ directory              | Grep, Glob, LS                                       |
 | thoughts_analyzer       | Extracts high-value insights from thoughts/ documents                | Read, Grep, Glob, LS                                 |
+| thoughts_writer         | Writes content verbatim to the thoughts/ directory                   | Write, Edit, Read, Glob, LS                          |
 | web_search_researcher   | Researches questions using web search and page fetching              | WebSearch, WebFetch, TodoWrite, Read, Grep, Glob, LS |
+
+The `thoughts_writer` agent is unique: it is a **transcriber** with write access, used by skills to persist documents to the `thoughts/` directory.
 
 All codebase agents are **documentarians, not critics** — they describe what exists without suggesting improvements or identifying problems.
 

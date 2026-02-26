@@ -85,7 +85,12 @@ Then, wait for the user's research query.
 
 6. **Gather metadata and generate research document:**
    - Run Bash() tools to gather metadata (git commit, branch, date) for the Metadata section
-   - Filename: `thoughts/research/YYYY-MM-DD-ENG-XXXX-description.md`
+   - Compose the full research document in your context, then delegate the write to `thoughts_writer`:
+     ```
+     Task tool with subagent_type: thoughts_writer
+     ```
+     Pass the target file path and the composed content wrapped in `<content>` tags.
+   - Target path: `thoughts/research/YYYY-MM-DD-ENG-XXXX-description.md`
      - Format: `YYYY-MM-DD-ENG-XXXX-description.md` where:
        - YYYY-MM-DD is today's date
        - ENG-XXXX is the ticket number (omit if no ticket)
@@ -165,10 +170,10 @@ Please review and feel free to modify the research document. Let me know if you 
 ```
 
 8. **If the user explicitly asks you to update the research document:**
-   - Update the `status` field in frontmatter if needed
-   - Add a new section: `Follow-up Research [timestamp]`
+   - Compose the updates (frontmatter changes, new `Follow-up Research [timestamp]` section, etc.)
+   - Delegate the edits to `thoughts_writer` via Task tool with `subagent_type: thoughts_writer`
    - Spawn new sub-agents as needed for additional investigation
-   - Continue updating the document
+   - Continue delegating updates to `thoughts_writer`
 
 ## Important notes:
 - Always use parallel Task agents to maximize efficiency and minimize context usage

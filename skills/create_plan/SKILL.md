@@ -40,8 +40,13 @@ You are tasked with autonomously creating detailed implementation plans based on
  - Identify dependencies on other systems
 
 5. **Write out the detailed plan**:
- - Write to `thoughts/plans/YYYY-MM-DD-[ticket]-description.md`
- 
+ - Compose the full plan document in your context, then delegate the write to `thoughts_writer`:
+   ```
+   Task tool with subagent_type: thoughts_writer
+   ```
+   Pass the target file path and the composed content wrapped in `<content>` tags.
+ - Target path: `thoughts/plans/YYYY-MM-DD-[ticket]-description.md`
+
  **Filename format**:
  - With ticket: `2025-01-08-ENG-1478-parent-child-tracking.md`
  - Without ticket: `2025-01-08-improve-error-handling.md`

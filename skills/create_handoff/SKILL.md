@@ -25,11 +25,13 @@ Use the following information to understand how to create your document:
         - `2025-01-08_13-55-22_implement-handoff-system.md`
 
 ### 2. Handoff writing.
-using the above conventions, write your document. use the defined filepath, and the following YAML frontmatter pattern. Use the metadata gathered in step 1, Structure the document with YAML frontmatter followed by content:
+Using the above conventions, compose your document in your context using the defined filepath, and the following YAML frontmatter pattern. Use the metadata gathered in step 1. Structure the document with YAML frontmatter followed by content.
 
-**Size budget: 500–5,000 tokens.** Maximum 5,000 tokens. This is a compacted context transfer, not a journal. Be thorough but concise.
-
-**MANDATORY MINIMUM: 500 tokens.** Before writing the file, estimate the document's token count. If it would be under 500 tokens, you MUST expand: add more detail to task descriptions, more file:line references in learnings, more specific action items. A handoff under 500 tokens cannot provide enough context for a new session to resume effectively. Do NOT write the file until it meets the minimum.
+Once composed, delegate the write to `thoughts_writer`:
+```
+Task tool with subagent_type: thoughts_writer
+```
+Pass the target file path and the composed content wrapped in `<content>` tags.
 
 Use the following template structure:
 ```markdown

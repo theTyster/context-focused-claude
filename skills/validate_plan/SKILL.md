@@ -61,15 +61,22 @@ Collect any checkpoints which require human judgment (no associated command or p
 
 ### 4. Report Results
 
-After running all checks, update the plan document:
+After running all checks, delegate all plan document updates to `thoughts_writer` via Task tool with `subagent_type: thoughts_writer`:
 
-1. **Check off passed validation checkpoints** — change `- [ ]` to `- [x]` for each checkpoint that passed
-2. **Update the Validation State** in the References section — change `Validation State: untested` to `Validation State: passed` or `Validation State: failed`
-3. **Update the plan frontmatter** — if all checks pass, set `status: complete`; if any fail, leave as `status: in-progress`
+1. **Check off passed validation checkpoints** — delegate Edit to change `- [ ]` to `- [x]` for each checkpoint that passed
+2. **Update the Validation State** in the References section — delegate Edit to change `Validation State: untested` to `Validation State: passed` or `Validation State: failed`
+3. **Update the plan frontmatter** — delegate Edit: if all checks pass, set `status: complete`; if any fail, leave as `status: in-progress`
+
+You may batch all plan edits into a single `thoughts_writer` invocation.
 
 If the validation does not pass:
 **Write out the detailed results**:
- - Write to `thoughts/validations/YYYY-MM-DD-[ticket]-description.md`
+ - Compose the full validation results document, then delegate the write to `thoughts_writer`:
+   ```
+   Task tool with subagent_type: thoughts_writer
+   ```
+   Pass the target file path and the composed content wrapped in `<content>` tags.
+ - Target path: `thoughts/validations/YYYY-MM-DD-[ticket]-description.md`
 
  **Filename format**:
  - With ticket: `2025-01-08-ENG-1478-parent-child-tracking.md`

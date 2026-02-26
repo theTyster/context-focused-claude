@@ -45,13 +45,13 @@ If you encounter a mismatch:
 
 ## Verification Approach
 
-After implementing a phase:
+After implementing a phase, delegate all plan document updates to `thoughts_writer` via Task tool with `subagent_type: thoughts_writer`:
 - **Update the `Current State` section** in the plan document:
   - Update the phase number and status
   - Set "Last verified" to the phase just completed and its result
   - Note any blockers or deviations from the original plan
 - Update your progress in both the plan and your todos
-- Check off completed items in the plan file itself using Edit
+- Check off completed items in the plan file by delegating the edits to `thoughts_writer`
 
 If instructed to execute multiple phases consecutively, skip the pause until the last phase. Otherwise, assume you are just doing one phase.
 
