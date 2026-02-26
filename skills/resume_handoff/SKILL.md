@@ -1,11 +1,11 @@
 ---
 name: resume_handoff
-description: Use when resuming work from handoff document with context analysis and validation
+description: Use when resuming work from handoff document
 ---
 
 # Resume work from a handoff document
 
-You are tasked with resuming work from a handoff document through an interactive process. These handoffs contain critical context, learnings, and next steps from previous work sessions that need to be understood and continued.
+You are tasked with resuming work from a handoff document. These handoffs contain critical context, learnings, and next steps from previous work sessions that need to be understood and continued.
 
 ## Initial Response
 

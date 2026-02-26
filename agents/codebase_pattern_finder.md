@@ -1,6 +1,6 @@
 ---
 name: codebase_pattern_finder
-description: codebase_pattern_finder is a useful subagent_type for finding similar implementations, usage examples, or existing patterns that can be modeled after. It will give you concrete code examples based on what you're looking for! It's sorta like codebase_locator, but it will not only tell you the location of files, it will also give you code details!
+description: codebase_pattern_finder is a useful subagent_type for finding similar implementations, usage examples, or existing patterns that can be modeled after. It will give you existing code examples and file locations based on what you're looking for.
 tools: Grep, Glob, Read, LS
 model: sonnet
 ---

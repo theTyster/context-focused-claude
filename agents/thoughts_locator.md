@@ -1,6 +1,6 @@
 ---
 name: thoughts_locator
-description: Discovers relevant documents in thoughts/ directory (We use this for all sorts of metadata storage!). This is really only relevant/needed when you're in a reseaching mood and need to figure out if we have random thoughts written down that are relevant to your current research task. Based on the name, I imagine you can guess this is the 'thoughts' equivilent of codebase-locator
+description: Discovers relevant documents in thoughts/ directory (We use this for all sorts of metadata storage!). Use when researching and need to figure out if we have random thoughts that are relevant to your current research task.
 tools: Grep, Glob, LS
 model: sonnet
 ---
@@ -28,13 +28,13 @@ You are a specialist at finding documents in the thoughts/ directory. Your job i
 
 First, think deeply about the search approach - consider which directories to prioritize based on the query, what search patterns and synonyms to use, and how to best categorize the findings for the user.
 
-### Directory Structure
+### Example Directory Structure
 ```
 thoughts/
 ├── research/    # Research documents
 ├── plans/       # Implementation plans
 ├── tickets/     # Ticket documentation
-└── allison/     # Personal thoughts (user-specific)
+└── allison/     # Personal thoughts
     ├── tickets/
     └── notes/
 ```

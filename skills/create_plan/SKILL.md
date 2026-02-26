@@ -1,15 +1,15 @@
 ---
 name: create_plan
-description: Use when creating autonomous implementation plans through thorough research for sub-agents
+description: Use when creating autonomous implementation plans from thorough research
 model: opus
 ---
 
 # Implementation Plan
-You are tasked with autonomously creating detailed implementation plans through thorough research and analysis. This skill is designed for sub-agents that need to create plans without user interaction.
+You are tasked with autonomously creating detailed implementation plans based on thorough research and documentation which has already been performed.
 
 ## Core Principles
-1. **Autonomous Decision Making**: Make all decisions based on research findings
-2. **Thorough Research**: Use parallel sub-agents to gather comprehensive context
+1. **Autonomous Decision Making**: Make all decisions based on presented documentation
+2. **Precise Context Gathering**: Read mentioned files at their specified offsets
 3. **No User Interaction**: Complete the entire planning process independently
 4. **Actionable Output**: Produce a complete, ready-to-implement plan
 
@@ -25,6 +25,7 @@ You are tasked with autonomously creating detailed implementation plans through 
  - Note patterns and conventions to follow
  - Determine integration points and dependencies
  - Identify potential complexities and edge cases
+ - If more context is needed you may read specific, complete files in their entirety at the end of this step
 
 3. **Think about design decisions**:
  - Choose implementation approach based on research
@@ -172,11 +173,17 @@ topic: "[Feature/Task Name]"
 - Validation State: untested
 ````
 
+6. **Follow up**
+After the document has been written respond with:
+```
+Please review and feel free to modify the plan document. Let me know if you would like to discuss any points from it.
+```
+
 ## Important Guidelines
 
 ### 1. Be Thorough
-- Read all context files COMPLETELY before planning
-- Research actual code patterns using parallel sub-agents
+- Read all mentioned thoughts COMPLETELY before planning
+- Read actual code patterns from specified files at their designated offsets
 - Include specific file paths and line numbers
 - Write measurable success criteria
 

@@ -1,20 +1,22 @@
 ---
 name: implement_plan
-description: Use when implementing technical plans from thoughts/plans with verification
+description: Use when instructed
 ---
 
 # Implement Plan
 
 You are tasked with implementing an approved technical plan from `thoughts/plans/`. These plans contain phases with specific changes and success criteria.
 
+## Core Principles
+1. **Autonomous Decision Making**: Make all decisions based on presented documentation
+2. **Precise Context Gathering**: Read mentioned files at their specified offsets
+
 ## Getting Started
 
 When given a plan path:
-- Read the plan completely and check for any existing checkmarks (- [x])
-- Read the original ticket and all files mentioned in the plan
-- **Read files fully** - never use limit/offset parameters, you need complete context
+- Read the original ticket and all files mentioned in the plan at their specified offsets
 - Think deeply about how the pieces fit together
-- **MANDATORY: Create a to-do list using TodoWrite with at least 20 items** covering: each file to modify, each change to make, each verification command to run, each success criterion to check, and each phase transition. Update items as you complete them.
+- **MANDATORY: Create a to-do list with at least 20 items** to guide the implementation and keep it focused
 - Start implementing if you understand what needs to be done
 
 If no plan path provided, ask for one.
@@ -44,30 +46,16 @@ If you encounter a mismatch:
 ## Verification Approach
 
 After implementing a phase:
-- Run the success criteria checks (usually `make check test` covers everything)
-- Fix any issues before proceeding
-- **Update the `## Current State` section** in the plan document using the Edit tool:
+- **Update the `Current State` section** in the plan document:
   - Update the phase number and status
   - Set "Last verified" to the phase just completed and its result
   - Note any blockers or deviations from the original plan
 - Update your progress in both the plan and your todos
 - Check off completed items in the plan file itself using Edit
-- **Pause for human verification**: After completing all automated verification for a phase, pause and inform the human that the phase is ready for manual testing. Use this format:
-  ```
-  Phase [N] Complete - Ready for Manual Verification
-
-  Automated verification passed:
-  - [List automated checks that passed]
-
-  Please perform the manual verification steps listed in the plan:
-  - [List manual verification items from the plan]
-
-  Let me know when manual testing is complete so I can proceed to Phase [N+1].
-  ```
 
 If instructed to execute multiple phases consecutively, skip the pause until the last phase. Otherwise, assume you are just doing one phase.
 
-do not check off items in the manual testing steps until confirmed by the user.
+Do not check off items in the testing/validation steps unless explicitly instructed by the user. This phase is handled by a different agent.
 
 
 ## If You Get Stuck
@@ -85,5 +73,3 @@ If the plan has existing checkmarks:
 - Trust that completed work is done
 - Pick up from the first unchecked item
 - Verify previous work only if something seems off
-
-Remember: You're implementing a solution, not just checking boxes. Keep the end goal in mind and maintain forward momentum.

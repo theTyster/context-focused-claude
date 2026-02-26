@@ -164,9 +164,9 @@ After the document has been written respond with:
 Please review and feel free to modify the research document. Let me know if you would like to discuss any points from it.
 ```
 
-9. **If the user explicitly asks you to update the research document:**
+8. **If the user explicitly asks you to update the research document:**
    - Update the `status` field in frontmatter if needed
-   - Add a new section: `## Follow-up Research [timestamp]`
+   - Add a new section: `Follow-up Research [timestamp]`
    - Spawn new sub-agents as needed for additional investigation
    - Continue updating the document
 
