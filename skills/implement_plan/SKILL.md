@@ -43,19 +43,35 @@ If you encounter a mismatch:
   How should I proceed?
   ```
 
-## Verification Approach
+## Verification, Validation, and Testing Approach
 
-After implementing a phase, delegate all plan document updates to `thoughts_writer` via Task tool with `subagent_type: thoughts_writer`:
+After implementing a phase, delegate all thoughts updates to thoughts_writer:
+- Use the edit protocol with `<params>` including the path and optional status update
 - **Update the `Current State` section** in the plan document:
   - Update the phase number and status
   - Set "Last verified" to the phase just completed and its result
   - Note any blockers or deviations from the original plan
 - Update your progress in both the plan and your todos
-- Check off completed items in the plan file by delegating the edits to `thoughts_writer`
+- Check off completed items in the plan file
 
-If instructed to execute multiple phases consecutively, skip the pause until the last phase. Otherwise, assume you are just doing one phase.
+<example-invocation>
+<params>
+operation: edit
+path: thoughts/plans/2026-02-26-feature-name.md
+</params>
 
-Do not check off items in the testing/validation steps unless explicitly instructed by the user. This phase is handled by a different agent.
+<content>
+- Phase: 1 of 3 (in progress)
+- Last verified: Phase 1 completed successfully
+
+Check off the following items:
+- [x] todo item
+- [x] todo item
+- [x] todo item
+</content>
+</example-invocation>
+
+Do not check off items in the testing/validation steps unless explicitly instructed. This phase is handled by a different agent.
 
 
 ## If You Get Stuck
@@ -64,8 +80,6 @@ When something isn't working as expected:
 - First, make sure you've read and understood all the relevant code
 - Consider if the codebase has evolved since the plan was written
 - Present the mismatch clearly and ask for guidance
-
-Use sub-tasks sparingly - mainly for targeted debugging or exploring unfamiliar territory.
 
 ## Resuming Work
 

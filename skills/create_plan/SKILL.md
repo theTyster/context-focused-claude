@@ -40,32 +40,25 @@ You are tasked with autonomously creating detailed implementation plans based on
  - Identify dependencies on other systems
 
 5. **Write out the detailed plan**:
- - Compose the full plan document in your context, then delegate the write to `thoughts_writer`:
-   ```
-   Task tool with subagent_type: thoughts_writer
-   ```
-   Pass the target file path and the composed content wrapped in `<content>` tags.
- - Target path: `thoughts/plans/YYYY-MM-DD-[ticket]-description.md`
+ - Compose the plan document body in your context (including `## References` with `Validation State: untested`)
+ - Delegate to thoughts_writer
+ - Pass `</params>` with operation, type, topic, description, and optional ticket
+ - Pass the body content in `</content>` tags
+ - The thoughts_writer will generate front-matter, filename, and return metadata
 
- **Filename format**:
- - With ticket: `2025-01-08-ENG-1478-parent-child-tracking.md`
- - Without ticket: `2025-01-08-improve-error-handling.md`
+ <example-invocation>
+ <params>
+ operation: new
+ type: plan
+ topic: "Feature Name Implementation"
+ description: feature-name
+ ticket: ENG-1234
+ </params>
 
-**Template structure**:
-- Overview [1-2 sentence summary]
+ </content>
+</example-invocation>
 
-- Implementation Phases:
- 1. [Phase name] - [what it accomplishes]
- 2. [Phase name] - [what it accomplishes]
- 3. [Phase name] - [what it accomplishes]
-
-````markdown
----
-status: in-progress
-type: plan
-topic: "[Feature/Task Name]"
----
-
+<template>
 # [Feature/Task Name] Implementation Plan
 
 ## Current State
@@ -149,7 +142,7 @@ topic: "[Feature/Task Name]"
 [What is required for this change to be considered successful]
 
 ### Validation Checkpoints:
-{ Below are some examples of checkpoints which might be used in validation:
+<example_checkpoints>
  - [ ] Migration applies cleanly: `make migrate`
  - [ ] Unit tests pass: `make test-component`
  - [ ] Type checking passes: `npm run typecheck`
@@ -159,7 +152,7 @@ topic: "[Feature/Task Name]"
  - [ ] Performance is acceptable under load
  - [ ] Edge case handling verified manually
  - [ ] No regressions in related features
-}
+</example_checkpoints>
 
 ## Performance Considerations
 
@@ -176,13 +169,11 @@ topic: "[Feature/Task Name]"
 - Similar implementation: `[file:line]`
 - Relevant documentation: [links]
 - Validation State: untested
-````
 
 6. **Follow up**
 After the document has been written respond with:
-```
-Please review and feel free to modify the plan document. Let me know if you would like to discuss any points from it.
-```
+`Please review and feel free to modify the plan document. Let me know if you would like to discuss any points from it.`
+</template>
 
 ## Important Guidelines
 

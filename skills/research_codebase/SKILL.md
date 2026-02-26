@@ -17,15 +17,6 @@ You are tasked with conducting comprehensive research across the codebase to ans
 - ONLY describe what exists, where it exists, how it works, and how components interact
 - You are creating a technical map/documentation of the existing system
 
-## Initial Setup:
-
-When this command is invoked, respond with:
-```
-I'm ready to research the codebase. Please provide your research question or area of interest, and I'll analyze it thoroughly by exploring relevant components and connections.
-```
-
-Then, wait for the user's research query.
-
 ## Steps to follow after receiving the research query:
 
 1. **Fully Read any directly mentioned files first:**
@@ -83,30 +74,25 @@ Then, wait for the user's research query.
    - Highlight patterns, connections, and architectural decisions
    - Answer the user's specific questions with concrete evidence
 
-6. **Gather metadata and generate research document:**
-   - Run Bash() tools to gather metadata (git commit, branch, date) for the Metadata section
-   - Compose the full research document in your context, then delegate the write to `thoughts_writer`:
-     ```
-     Task tool with subagent_type: thoughts_writer
-     ```
-     Pass the target file path and the composed content wrapped in `<content>` tags.
-   - Target path: `thoughts/research/YYYY-MM-DD-ENG-XXXX-description.md`
-     - Format: `YYYY-MM-DD-ENG-XXXX-description.md` where:
-       - YYYY-MM-DD is today's date
-       - ENG-XXXX is the ticket number (omit if no ticket)
-       - description is a brief kebab-case description of the research topic
-     - Examples:
-       - With ticket: `2025-01-08-ENG-1478-parent-child-tracking.md`
-       - Without ticket: `2025-01-08-authentication-flow.md`
+6. **Generate research document:**
+   - Compose the research document body (without front-matter or `## Metadata` section) in your context
+   - Delegate to thoughts_writer:
+     - Pass `<params>` with: `operation: new`, `type: research`, `topic`, `description`, and optional `ticket`
+     - Pass the body in `<content>` tags
+   - thoughts_writer returns metadata (file_path, git info, date) and auto-appends the `## Metadata` section
 
-Here's a firm template describing what you should produce.
-```markdown
----
-status: complete
-type: research
-topic: "[User's Question/Topic]"
----
+   Example:
+   ```
+   <params>
+   operation: new
+   type: research
+   topic: "Authentication Flow"
+   description: authentication-flow
+   </params>
+   ```
 
+Here's a firm template describing what you should produce:
+<template>
 # Research: [User's Question/Topic]
 
 ## Summary (minimum 3 paragraphs)
@@ -154,14 +140,7 @@ topic: "[User's Question/Topic]"
 
 ## Open Questions
 [Any areas that need further investigation, or "None" if fully resolved]
-
-## Metadata
-- Date: [Current date and time with timezone]
-- Researcher: [Researcher name]
-- Git: [Current commit hash] ([branch name])
-- Repository: [Repository name]
-- Tags: [research, codebase, relevant-component-names]
-```
+</template>
 
 7. **Follow up**
 After the document has been written respond with:
@@ -171,9 +150,9 @@ Please review and feel free to modify the research document. Let me know if you 
 
 8. **If the user explicitly asks you to update the research document:**
    - Compose the updates (frontmatter changes, new `Follow-up Research [timestamp]` section, etc.)
-   - Delegate the edits to `thoughts_writer` via Task tool with `subagent_type: thoughts_writer`
+   - Delegate the edits to thoughts_writer
    - Spawn new sub-agents as needed for additional investigation
-   - Continue delegating updates to `thoughts_writer`
+   - Continue delegating updates to thoughts_writer
 
 ## Important notes:
 - Always use parallel Task agents to maximize efficiency and minimize context usage
@@ -194,7 +173,3 @@ Please review and feel free to modify the research document. Let me know if you 
   - ALWAYS wait for all sub-agents to complete before synthesizing (step 4)
   - ALWAYS gather metadata before writing the document (step 5)
   - NEVER write the research document with placeholder values
-- **Frontmatter consistency**:
-  - Always include lean frontmatter (status, type, topic) at the beginning
-  - Keep frontmatter fields consistent across all research documents
-  - Provenance metadata goes in the `## Metadata` section at the end

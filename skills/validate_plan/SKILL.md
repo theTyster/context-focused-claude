@@ -61,26 +61,41 @@ Collect any checkpoints which require human judgment (no associated command or p
 
 ### 4. Report Results
 
-After running all checks, delegate all plan document updates to `thoughts_writer` via Task tool with `subagent_type: thoughts_writer`:
+After running all checks, delegate all plan document updates to thoughts_writer:
 
 1. **Check off passed validation checkpoints** — delegate Edit to change `- [ ]` to `- [x]` for each checkpoint that passed
 2. **Update the Validation State** in the References section — delegate Edit to change `Validation State: untested` to `Validation State: passed` or `Validation State: failed`
-3. **Update the plan frontmatter** — delegate Edit: if all checks pass, set `status: complete`; if any fail, leave as `status: in-progress`
+3. **Update the plan frontmatter status** — include `status: complete` or `status: in-progress` in `<params>`
 
-You may batch all plan edits into a single `thoughts_writer` invocation.
+Use the edit protocol:
+```
+<params>
+operation: edit
+path: thoughts/plans/YYYY-MM-DD-description.md
+status: complete
+</params>
+
+<content>
+... checkbox and Validation State edits ...
+</content>
+```
+
+You may batch all plan edits into a single thoughts_writer invocation.
 
 If the validation does not pass:
 **Write out the detailed results**:
- - Compose the full validation results document, then delegate the write to `thoughts_writer`:
+ - Compose the validation results body (without front-matter)
+ - Delegate to thoughts_writer with:
    ```
-   Task tool with subagent_type: thoughts_writer
+   <params>
+   operation: new
+   type: validation
+   topic: "Validation: [Plan Name]"
+   description: plan-name-validation
+   status: passed|failed
+   </params>
    ```
-   Pass the target file path and the composed content wrapped in `<content>` tags.
- - Target path: `thoughts/validations/YYYY-MM-DD-[ticket]-description.md`
-
- **Filename format**:
- - With ticket: `2025-01-08-ENG-1478-parent-child-tracking.md`
- - Without ticket: `2025-01-08-improve-error-handling.md`
+ - Pass the body in `<content>` tags
 
 Here's a firm template describing what you should produce.
 ```

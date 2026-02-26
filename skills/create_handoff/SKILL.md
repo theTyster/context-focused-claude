@@ -9,38 +9,17 @@ You are tasked with writing a handoff document to hand off your work to another 
 
 
 ## Process
-### 1. Filepath & Metadata
-Use the following information to understand how to create your document:
-    - create your file under `thoughts/handoffs/YYYY-MM-DD_HH-MM-SS_description.md`, where:
-        - YYYY-MM-DD is today's date
-        - HH-MM-SS is the hours, minutes and seconds based on the current time, in 24-hour format (i.e. use `13:00` for `1:00 pm`)
-        - description is a brief kebab-case description
-    - Generate metadata inline:
-        - current_date: Use current date/time in ISO format with timezone
-        - git_commit: Run `git rev-parse HEAD 2>/dev/null || echo "N/A (not in git repository)"`
-        - branch: Run `git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "N/A"`
-        - repository: Run `basename "$(git rev-parse --show-toplevel 2>/dev/null)" || basename "$PWD"`
-    - Examples:
-        - `2025-01-08_13-55-22_create-context-compaction.md`
-        - `2025-01-08_13-55-22_implement-handoff-system.md`
+### 1. Compose the handoff body
+Compose the document body using the template below. Do NOT include YAML front-matter or the `## Metadata` section — the `thoughts_writer` agent handles both.
 
-### 2. Handoff writing.
-Using the above conventions, compose your document in your context using the defined filepath, and the following YAML frontmatter pattern. Use the metadata gathered in step 1. Structure the document with YAML frontmatter followed by content.
+### 2. Delegate to thoughts_writer
+Delegate the write via Task tool with `subagent_type: thoughts_writer`:
+- Pass `<params>` with: `operation: new`, `type: handoff`, `topic`, `description`
+- Pass the body in `<content>` tags (without front-matter or `## Metadata` section)
+- thoughts_writer returns metadata (file_path, git info, date) and auto-appends the `## Metadata` section
 
-Once composed, delegate the write to `thoughts_writer`:
-```
-Task tool with subagent_type: thoughts_writer
-```
-Pass the target file path and the composed content wrapped in `<content>` tags.
-
-Use the following template structure:
+Use the following template structure for the body content in `<content>` tags:
 ```markdown
----
-status: incomplete
-type: handoff
-topic: "{very concise description}"
----
-
 # Handoff: {very concise description}
 
 ## Task(s)
@@ -61,11 +40,6 @@ topic: "{very concise description}"
 ## Artifacts
 { an exhaustive list of artifacts you produced or updated as filepaths and/or file:line references - e.g. paths to feature documents, implementation plans, etc that should be read in order to resume your work.}
 
-## Metadata
-- Date: [Current date and time with timezone]
-- Git: [Current commit hash] ([branch name])
-- Repository: [Repository name]
-- Tags: [handoff, relevant-component-names]
 ```
 ---
 
