@@ -24,6 +24,7 @@ These are the **default** conventions. Users may customize the `thoughts/` direc
 | ----------------------- | -------------------------------------------- | ---------------------------------------------------- |
 | `thoughts/plans/`       | `YYYY-MM-DD-[ticket]-description.md`         | `2025-01-08-ENG-1478-parent-child-tracking.md`       |
 | `thoughts/research/`    | `YYYY-MM-DD-[ticket]-description.md`         | `2025-01-08-authentication-flow.md`                  |
+| `thoughts/review/`      | `YYYY-MM-DD-[ticket]-description.md`         | `2025-01-08-ace-fca-pipeline-refinement-analysis.md` |
 | `thoughts/validations/` | `YYYY-MM-DD-[ticket]-description.md`         | `2025-01-08-ENG-1478-parent-child-tracking.md`       |
 | `thoughts/handoffs/`    | `YYYY-MM-DD_HH-MM-SS_description.md`         | `2025-01-08_13-55-22_create-context-compaction.md`   |
 | `thoughts/tickets/`     | `eng_XXXX.md`                                | `eng_1478.md`                                        |
