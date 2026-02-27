@@ -53,13 +53,13 @@ Compare the current state of the codebase against the **Desired End State** sect
 - Check that files, structures, and behaviors described actually exist
 - Note any discrepancies
 
-### 5. Manual Verification
+### 4. Manual Verification
 
 Collect any checkpoints which require human judgment (no associated command or provided testing framework):
 
 - Present them as a checklist to the user
 
-### 4. Report Results
+### 5. Report Results
 
 After running all checks, delegate all plan document updates to thoughts_writer:
 
@@ -119,6 +119,22 @@ Here's a firm template describing what you should produce.
 ### Manual Verifications:
 - [ ] Item — [why this must be verified manually]
 - [ ] Item — [why this must be verified manually]
+
+## Next Steps
+
+Based on the failures above, the recommended re-entry path is:
+
+1. **If failures are implementation bugs** (code doesn't match plan intent):
+   - Re-run `/implement_plan` with the original plan path
+   - Reference this validation document so the implementer knows what failed: `@thoughts/validations/[this-file].md`
+
+2. **If failures indicate plan gaps** (plan didn't account for something):
+   - Create a follow-up plan with `/create_plan` that references both the original plan and this validation document
+   - The follow-up plan should address only the gaps — not re-implement what already works
+
+3. **If failures indicate research gaps** (the codebase works differently than assumed):
+   - Run `/research_codebase` targeting the specific areas where assumptions were wrong
+   - Then create a new plan from the updated research
 
 ```
 

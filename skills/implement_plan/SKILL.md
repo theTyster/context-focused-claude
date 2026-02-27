@@ -87,3 +87,12 @@ If the plan has existing checkmarks:
 - Trust that completed work is done
 - Pick up from the first unchecked item
 - Verify previous work only if something seems off
+
+## Re-implementation from Validation Failure
+
+If the user provides a validation results document (from `thoughts/validations/`) alongside the plan:
+- Read the validation results document FULLY first
+- Identify which validation checkpoints failed and why
+- Focus implementation work ONLY on the failed areas — do not re-implement phases that passed validation
+- When updating the plan's Current State, note that this is a re-implementation pass triggered by validation failure
+- If the validation document indicates the plan itself needs changes (plan gaps), STOP and inform the user — the plan needs to be updated first before re-implementation

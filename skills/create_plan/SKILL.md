@@ -17,8 +17,20 @@ You are tasked with autonomously creating detailed implementation plans based on
 
 **MANDATORY: Create a to-do list with the following items:**
 
+0. **Detect and consume research documents (if provided)**:
+ - Check if the user's input includes references to `thoughts/research/` or `thoughts/review/` documents
+ - If research is provided:
+   - Read the research document(s) FULLY using the Read tool (no limit/offset)
+   - Extract: Summary, Detailed Findings, Code References, and Open Questions
+   - Use the research findings as your PRIMARY context source
+   - In step 1, only spawn sub-agents for areas NOT already covered by research (e.g., open questions, areas the research flagged as needing more investigation, or specific implementation patterns not documented in the research)
+ - If no research is provided:
+   - Proceed with step 1 as normal — spawn full parallel sub-agent context gathering
+
 1. **Spawn parallel sub-tasks to gather context**:
- - Create multiple agents to read all mentioned file offsets concurrently
+ - If research was consumed in step 0, only spawn agents for gaps not covered by research
+ - If no research was provided, create multiple agents to read all mentioned file offsets concurrently
+ - In either case, spawn agents for any specific files or code patterns that need fresh verification
 
 2. **Analyze findings**:
  - Identify current state and what needs to change
@@ -165,6 +177,7 @@ You are tasked with autonomously creating detailed implementation plans based on
 ## References
 
 - Original ticket: `thoughts/tickets/eng_XXXX.md` (if applicable)
+- Source research: `thoughts/research/[path-to-research-used].md` (if research was provided as input)
 - Related research: `thoughts/research/[relevant].md`
 - Similar implementation: `[file:line]`
 - Relevant documentation: [links]
