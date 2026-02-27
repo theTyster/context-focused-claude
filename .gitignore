@@ -2,6 +2,7 @@
 .claude/
 *.local.md
 thoughts
+CLAUDE.md
 
 # Node.js
 node_modules/
