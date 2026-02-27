@@ -36,18 +36,16 @@ const TOOL_MAPPING = {
   'WebSearch': 'google_web_search',
   'WebFetch': 'web_fetch',
   'Task': 'activate_skill',
-  'TodoWrite': 'todowrite',  // No Gemini equivalent yet
-  'TodoRead': 'todoread'     // No Gemini equivalent yet
 };
 
 // Model mappings (Claude -> Gemini)
 const MODEL_MAPPING = {
-  'sonnet': 'gemini-1.5-pro',
-  'claude-sonnet': 'gemini-1.5-pro',
+  'sonnet': 'gemini-2.5-pro',
+  'claude-sonnet': 'gemini-2.5-pro',
   'haiku': 'gemini-2.0-flash',
   'claude-haiku': 'gemini-2.0-flash',
   'opus': 'gemini-1.5-pro',
-  'claude-opus': 'gemini-1.5-pro'
+  'claude-opus': 'gemini-3-pro'
 };
 
 function parseClaudeCodeAgent(content) {

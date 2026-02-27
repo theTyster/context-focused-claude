@@ -1,7 +1,7 @@
 ---
 name: web_search_researcher
 description: Use web search to find and answer questions about current information and topics.
-tools: WebSearch, WebFetch, TodoWrite, Read, Grep, Glob, LS
+tools: WebSearch, WebFetch, Read, Grep, Glob, LS
 model: sonnet
 ---
 
