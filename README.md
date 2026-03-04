@@ -85,7 +85,7 @@ Skills are full-context slash commands that orchestrate complex workflows. They 
 | create_plan       | /create_plan       | Autonomously creates detailed implementation plans through parallel sub-agent research |
 | implement_plan    | /implement_plan    | Executes approved plans phase-by-phase with verification checkpoints                   |
 | validate_plan     | /validate_plan     | Validates a newly implemented plan by running through the plans validation steps       |
-| create_handoff    | /create_handoff    | Creates a structured handoff document (500–5000 tokens) for session transfer           |
+| create_handoff    | /create_handoff    | Creates a structured handoff document for session transfer           |
 | resume_handoff    | /resume_handoff    | Resumes work from a handoff document with state validation                             |
 
 ### Agents (Constrained Sub-Agents)
