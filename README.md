@@ -49,7 +49,7 @@ Here's some pre-existing research:
 - What does it intend to modify?
 - How does this plan intend to verify the implementation is successful?
 
---- 
+---
 
 5. **Implement the Plan**
 
@@ -82,31 +82,30 @@ Skills are full-context slash commands that orchestrate complex workflows. They 
 | Skill             | Command            | Purpose                                                                                |
 | ----------------- | ------------------ | -------------------------------------------------------------------------------------- |
 | research_codebase | /research_codebase | Documents the codebase as-is using parallel sub-agents and compact, structured output  |
+| review_thoughts   | /review_thoughts   | Facilitates structured human review of research/plan documents with guided questions   |
 | create_plan       | /create_plan       | Autonomously creates detailed implementation plans through parallel sub-agent research |
 | implement_plan    | /implement_plan    | Executes approved plans phase-by-phase with verification checkpoints                   |
 | validate_plan     | /validate_plan     | Validates a newly implemented plan by running through the plans validation steps       |
-| create_handoff    | /create_handoff    | Creates a structured handoff document for session transfer           |
+| create_handoff    | /create_handoff    | Creates a structured handoff document for session transfer                             |
 | resume_handoff    | /resume_handoff    | Resumes work from a handoff document with state validation                             |
 
 ### Agents (Constrained Sub-Agents)
 
 Agents are specialized sub-agents with limited tool access. They run in isolated context to avoid polluting your main conversation. Invoke them using the `Task` tool with the appropriate `subagent_type`.
 
-| Agent                   | Model  | Purpose                                                              | Tools                                       |
-| ----------------------- | ------ | -------------------------------------------------------------------- | ------------------------------------------- |
-| codebase_locator        | Haiku  | Finds WHERE code lives — files, directories, components              | Grep, Glob, LS                              |
-| codebase_analyzer       | Sonnet | Analyzes HOW code works — traces data flow, documents implementation | Read, Grep, Glob, LS                        |
-| codebase_pattern_finder | Haiku  | Finds similar implementations and code patterns with actual snippets | Grep, Glob, Read, LS                        |
-| thoughts_locator        | Haiku  | Discovers relevant documents in the thoughts/ directory              | Grep, Glob, LS                              |
-| thoughts_analyzer       | Sonnet | Extracts high-value insights from thoughts/ documents                | Read, Grep, Glob, LS                        |
-| thoughts_writer         | Sonnet | Writes content verbatim to the thoughts/ directory                   | Write, Edit, Read, Glob, LS, Bash           |
-| web_search_researcher   | Haiku  | Researches questions using web search and page fetching              | WebSearch, WebFetch, Read, Grep, Glob, LS   |
-
+| Agent                   | Model  | Purpose                                                              | Tools                                     |
+| ----------------------- | ------ | -------------------------------------------------------------------- | ----------------------------------------- |
+| codebase_locator        | Haiku  | Finds WHERE code lives — files, directories, components              | Grep, Glob, LS                            |
+| codebase_analyzer       | Sonnet | Analyzes HOW code works — traces data flow, documents implementation | Read, Grep, Glob, LS                      |
+| codebase_pattern_finder | Haiku  | Finds similar implementations and code patterns with actual snippets | Grep, Glob, Read, LS                      |
+| thoughts_locator        | Haiku  | Discovers relevant documents in the thoughts/ directory              | Grep, Glob, LS                            |
+| thoughts_analyzer       | Sonnet | Extracts high-value insights from thoughts/ documents                | Read, Grep, Glob, LS                      |
+| thoughts_writer         | Sonnet | Writes content verbatim to the thoughts/ directory                   | Write, Edit, Read, Glob, LS, Bash         |
+| web_search_researcher   | Haiku  | Researches questions using web search and page fetching              | WebSearch, WebFetch, Read, Grep, Glob, LS |
 
 Almost all codebase agents are **documentarians, not critics** — they describe what exists without suggesting improvements or identifying problems.
 
 The `thoughts_writer` agent is unique: it is a **document assembler** with write access, used by skills to persist documents to the `thoughts/` directory.
-
 
 ### Typical Workflow
 
