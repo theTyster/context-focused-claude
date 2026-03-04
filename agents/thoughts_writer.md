@@ -47,7 +47,7 @@ Callers provide:
 ```
 <params>
 operation: new
-type: plan|research|handoff|validation
+type: plan|research|review|handoff|validation
 topic: "Brief description of subject"
 description: kebab-case-name
 ticket: ENG-1234
@@ -69,6 +69,7 @@ When you receive this, create the following to-do items:
    - `plan` → `in-progress`
    - `research` → `complete`
    - `handoff` → `incomplete`
+   - `review` → `complete`
    - `validation` → (use the status provided by caller, e.g. `passed` or `failed`)
 4. **Run Bash commands** to gather git metadata:
    - `date -u "+%Y-%m-%dT%H:%M:%SZ"` for ISO date
@@ -83,6 +84,7 @@ When you receive this, create the following to-do items:
    - `plan` → `thoughts/plans/`
    - `research` → `thoughts/research/`
    - `handoff` → `thoughts/handoffs/`
+   - `review` → `thoughts/review/`
    - `validation` → `thoughts/validations/`
 7. **Update the interstitial document**:
    a. Prepend YAML front-matter (`---\nstatus: ...\ntype: ...\ntopic: ...\n---`)
