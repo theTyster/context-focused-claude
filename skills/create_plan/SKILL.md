@@ -13,9 +13,9 @@ You are tasked with autonomously creating detailed implementation plans based on
 3. **No User Interaction**: Complete the entire planning process independently
 4. **Actionable Output**: Produce a complete, ready-to-implement plan
 
-## Create a To-Do List
+## Create a List of Tasks
 
-**MANDATORY: Create a to-do list with the following items:**
+**MANDATORY: Create a list of tasks with the following items:**
 
 0. **Detect and consume research documents (if provided)**:
  - Check if the user's input includes references to `thoughts/research/` or `thoughts/review/` documents

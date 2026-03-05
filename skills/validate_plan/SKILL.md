@@ -27,7 +27,7 @@ When given a plan path:
 
 ## Validation Process
 
-Create a to-do list to work through validation in this order:
+Create a list of tasks to work through validation in this order:
 
 ### 1. Automated Checkpoints
 

@@ -16,7 +16,7 @@ You are tasked with implementing an approved technical plan from `thoughts/plans
 When given a plan path:
 - Read the original ticket and all files mentioned in the plan at their specified offsets
 - Think deeply about how the pieces fit together
-- **MANDATORY: Create a to-do list with at least 20 items** to guide the implementation and keep it focused
+- **MANDATORY: Create a list of tasks with at least 20 items** to guide the implementation and keep it focused
 - Start implementing if you understand what needs to be done
 
 If no plan path provided, ask for one.
@@ -51,7 +51,7 @@ After implementing a phase, delegate all thoughts updates to thoughts_writer:
   - Update the phase number and status
   - Set "Last verified" to the phase just completed and its result
   - Note any blockers or deviations from the original plan
-- Update your progress in both the plan and your todos
+- Update your progress in both the plan and your task list
 - Check off completed items in the plan file
 
 <example-invocation>
@@ -65,9 +65,9 @@ path: thoughts/plans/2026-02-26-feature-name.md
 - Last verified: Phase 1 completed successfully
 
 Check off the following items:
-- [x] todo item
-- [x] todo item
-- [x] todo item
+- [x] task item
+- [x] task item
+- [x] task item
 </content>
 </example-invocation>
 

@@ -30,9 +30,9 @@ You are tasked with conducting comprehensive research across the codebase to ans
    - Identify specific components, patterns, or concepts to investigate
    - Consider which directories, files, or architectural patterns are relevant
 
-3. **Create a to-do list (MANDATORY — minimum 20 items):**
+3. **Create a list of tasks (MANDATORY — minimum 20 items):**
    - Break down the user's query into composable research areas
-   - Create a detailed to-do list with at least 20 items covering:
+   - Create a detailed list of tasks with at least 20 items covering:
      - Files to read and analyze
      - Sub-agents to spawn and their specific focuses
      - Components and systems to investigate

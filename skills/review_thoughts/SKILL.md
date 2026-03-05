@@ -202,7 +202,7 @@ When reviewing a plan document, present:
 
 ## Important Guidelines
 
-- **USE ToDos to structure the review** — never rely on your own attention to stay focused
+- **USE a list of tasks to structure the review** — never rely on your own attention to stay focused
 - **Read the full document** — never use limit/offset when reading the document under review
 - **Present the review a piece at a time** — Allow the user to respond in through chat
 - **Quote specific claims** — when listing key claims or decisions, use the document's own words verbatim

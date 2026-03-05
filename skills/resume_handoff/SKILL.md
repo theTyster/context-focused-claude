@@ -116,8 +116,8 @@ Then wait for the user's input.
 
 ### Step 3: Create Action Plan
 
-1. **MANDATORY: Use TodoWrite to create a to-do list with at least 20 items**:
-   - Convert action items from handoff into todos
+1. **MANDATORY: Use TodoWrite to create a list of tasks with at least 20 items**:
+   - Convert action items from handoff into tasks
    - Add any new tasks discovered during analysis
    - Break each action item into concrete sub-steps (files to read, changes to make, verifications to run)
    - Prioritize based on dependencies and handoff guidance
@@ -127,7 +127,7 @@ Then wait for the user's input.
    ```
    I've created a task list based on the handoff and current analysis:
 
-   [Show todo list]
+   [Show task list]
 
    Ready to begin with the first task: [task description]?
    ```
@@ -215,5 +215,5 @@ I've analyzed the handoff from [date]. Here's the current situation...
 Shall I proceed with implementing the webhook validation fix, or would you like to adjust the approach?
 
 User: Yes, proceed with the webhook validation
-Assistant: [Creates todo list and begins implementation]
+Assistant: [Creates task list and begins implementation]
 ```
