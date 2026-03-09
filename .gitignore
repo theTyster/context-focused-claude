@@ -1,3 +1,4 @@
+.env
 # Claude Code session files
 .claude/
 *.local.md
