@@ -71,12 +71,13 @@ When you receive this, create the following to-do items:
    - `handoff` → `incomplete`
    - `review` → `complete`
    - `validation` → (use the status provided by caller, e.g. `passed` or `failed`)
-4. **Run Bash commands** to gather git metadata:
-   - `date -u "+%Y-%m-%dT%H:%M:%SZ"` for ISO date
-   - `date "+%Y-%m-%d"` for filename date (and `date "+%H-%M-%S"` for handoff time)
-   - `git rev-parse --short HEAD` for commit hash
-   - `git rev-parse --abbrev-ref HEAD` for branch
-   - `basename "$(git rev-parse --show-toplevel)"` for repository name
+4. **Run `"${CLAUDE_PLUGIN_ROOT}/bin/thoughts-meta"`** to gather all date and git metadata in one call. It returns:
+   - `iso_date` — ISO 8601 UTC timestamp (for front-matter and metadata sections)
+   - `file_date` — `YYYY-MM-DD` (for filenames)
+   - `file_time` — `HH-MM-SS` (for handoff filenames)
+   - `git_commit` — short commit hash
+   - `git_branch` — current branch name
+   - `repository` — repository name
 5. **Generate filename**:
    - Handoffs: `YYYY-MM-DD_HH-MM-SS_description.md`
    - All others: `YYYY-MM-DD-[ticket-]description.md`
