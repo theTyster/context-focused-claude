@@ -29,6 +29,18 @@
         "keywords": ["research", "planning", "implementation", "context-management", "sub-agents"]
       },
       "homepage": "https://github.com/thetyster/context-focused-claude"
+    },
+    {
+      "name": "ticket-requirements",
+      "description": "Ticket requirements exploration — turn a vague request into a well-scoped ticket document with acceptance criteria, risks, and open questions.",
+      "version": "1.0.0",
+      "source": "./plugins/ticket-requirements",
+      "author": {
+        "name": "ty",
+        "email": "noreply@mail.thetyster.dev",
+        "keywords": ["tickets", "requirements", "planning", "context-management"]
+      },
+      "homepage": "https://github.com/thetyster/context-focused-claude"
     }
   ]
 }
