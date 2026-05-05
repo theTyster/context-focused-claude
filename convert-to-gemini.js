@@ -285,6 +285,27 @@ function convertSkills(skillsDir, outputDir) {
   return { success, fail };
 }
 
+function loadMarketplace() {
+  const marketplacePath = path.join(__dirname, '.claude-plugin', 'marketplace.json');
+  if (!fs.existsSync(marketplacePath)) return null;
+  try {
+    return JSON.parse(fs.readFileSync(marketplacePath, 'utf8'));
+  } catch (e) {
+    console.warn(`Warning: Could not parse marketplace.json: ${e.message}`);
+    return null;
+  }
+}
+
+function discoverPluginDirs() {
+  const marketplace = loadMarketplace();
+  if (!marketplace || !marketplace.plugins) return null;
+
+  return marketplace.plugins.map(plugin => {
+    const sourcePath = path.resolve(__dirname, plugin.source);
+    return { name: plugin.name, sourcePath };
+  });
+}
+
 function parseArgs() {
   const args = process.argv.slice(2);
   const options = { type: 'agents', inputDir: null, outputDir: null };
@@ -314,44 +335,73 @@ function main() {
 
   let totalSuccess = 0, totalFail = 0;
 
-  if (options.type === 'agents' || options.type === 'all') {
-    const agentsDir = options.inputDir || path.join(__dirname, 'agents');
-    const outputDir = path.join(__dirname, '.gemini', 'agents');
+  const agentsOutputDir = path.join(__dirname, '.gemini', 'agents');
+  const skillsOutputDir = path.join(__dirname, '.gemini', 'skills');
 
-    console.log(`Output directory: ${outputDir}`);
-
-    if (!fs.existsSync(outputDir)) {
-      fs.mkdirSync(outputDir, { recursive: true });
-    }
-
-    const r = convertAgents(agentsDir, outputDir);
-    totalSuccess += r.success;
-    totalFail += r.fail;
+  if ((options.type === 'agents' || options.type === 'all') && !fs.existsSync(agentsOutputDir)) {
+    fs.mkdirSync(agentsOutputDir, { recursive: true });
+  }
+  if ((options.type === 'skills' || options.type === 'all') && !fs.existsSync(skillsOutputDir)) {
+    fs.mkdirSync(skillsOutputDir, { recursive: true });
   }
 
-  if (options.type === 'skills' || options.type === 'all') {
-    const skillsDir = options.inputDir || path.join(__dirname, 'skills');
-    const outputDir = path.join(__dirname, '.gemini', 'skills');
-
-    console.log(`Output directory: ${outputDir}`);
-
-    if (!fs.existsSync(outputDir)) {
-      fs.mkdirSync(outputDir, { recursive: true });
+  // If an explicit input dir was provided, use legacy single-dir mode
+  if (options.inputDir) {
+    if (options.type === 'agents' || options.type === 'all') {
+      console.log(`Output directory: ${agentsOutputDir}`);
+      const r = convertAgents(options.inputDir, agentsOutputDir);
+      totalSuccess += r.success; totalFail += r.fail;
     }
+    if (options.type === 'skills' || options.type === 'all') {
+      console.log(`Output directory: ${skillsOutputDir}`);
+      const r = convertSkills(options.inputDir, skillsOutputDir);
+      totalSuccess += r.success; totalFail += r.fail;
+    }
+  } else {
+    // Discover plugins from marketplace.json
+    const plugins = discoverPluginDirs();
 
-    const r = convertSkills(skillsDir, outputDir);
-    totalSuccess += r.success;
-    totalFail += r.fail;
+    if (plugins && plugins.length > 0) {
+      console.log(`Discovered ${plugins.length} plugin(s) from marketplace.json\n`);
+      plugins.forEach(plugin => {
+        console.log(`--- Plugin: ${plugin.name} ---`);
+        if (options.type === 'agents' || options.type === 'all') {
+          console.log(`Output directory: ${agentsOutputDir}`);
+          const agentsDir = path.join(plugin.sourcePath, 'agents');
+          const r = convertAgents(agentsDir, agentsOutputDir);
+          totalSuccess += r.success; totalFail += r.fail;
+        }
+        if (options.type === 'skills' || options.type === 'all') {
+          console.log(`Output directory: ${skillsOutputDir}`);
+          const skillsDir = path.join(plugin.sourcePath, 'skills');
+          const r = convertSkills(skillsDir, skillsOutputDir);
+          totalSuccess += r.success; totalFail += r.fail;
+        }
+      });
+    } else {
+      // Fallback to legacy flat dirs at repo root
+      console.log('No marketplace.json found — falling back to root agents/ and skills/ directories\n');
+      if (options.type === 'agents' || options.type === 'all') {
+        console.log(`Output directory: ${agentsOutputDir}`);
+        const r = convertAgents(path.join(__dirname, 'agents'), agentsOutputDir);
+        totalSuccess += r.success; totalFail += r.fail;
+      }
+      if (options.type === 'skills' || options.type === 'all') {
+        console.log(`Output directory: ${skillsOutputDir}`);
+        const r = convertSkills(path.join(__dirname, 'skills'), skillsOutputDir);
+        totalSuccess += r.success; totalFail += r.fail;
+      }
+    }
   }
 
   console.log(`\n====================================`);
   console.log(`Conversion complete! ✓ ${totalSuccess}, ✗ ${totalFail}`);
 
   if (options.type === 'agents' || options.type === 'all') {
-    console.log(`\nAgents are in: ${path.join(__dirname, '.gemini', 'agents')}`);
+    console.log(`\nAgents are in: ${agentsOutputDir}`);
   }
   if (options.type === 'skills' || options.type === 'all') {
-    console.log(`Skills are in: ${path.join(__dirname, '.gemini', 'skills')}`);
+    console.log(`Skills are in: ${skillsOutputDir}`);
   }
 }
 

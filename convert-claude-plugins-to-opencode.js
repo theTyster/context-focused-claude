@@ -290,6 +290,28 @@ function convertSkills(skillsDir, outputDir) {
   return { success, fail };
 }
 
+function loadMarketplace() {
+  const marketplacePath = path.join(__dirname, '.claude-plugin', 'marketplace.json');
+  if (!fs.existsSync(marketplacePath)) return null;
+  try {
+    return JSON.parse(fs.readFileSync(marketplacePath, 'utf8'));
+  } catch (e) {
+    console.warn(`Warning: Could not parse marketplace.json: ${e.message}`);
+    return null;
+  }
+}
+
+function discoverPluginDirs() {
+  const marketplace = loadMarketplace();
+  if (!marketplace || !marketplace.plugins) return null;
+
+  return marketplace.plugins.map(plugin => {
+    // source paths are relative to repo root (where marketplace.json lives, same as __dirname)
+    const sourcePath = path.resolve(__dirname, plugin.source);
+    return { name: plugin.name, sourcePath };
+  });
+}
+
 function parseArgs() {
   const args = process.argv.slice(2);
   const options = { type: 'agents', inputDir: null, outputDir: null };
@@ -324,16 +346,47 @@ function main() {
 
   let totalSuccess = 0, totalFail = 0;
 
-  if (options.type === 'agents' || options.type === 'all') {
-    const agentsDir = options.inputDir || path.join(__dirname, 'agents');
-    const r = convertAgents(agentsDir, outputDir);
-    totalSuccess += r.success; totalFail += r.fail;
-  }
+  // If an explicit input dir was provided, use legacy single-dir mode
+  if (options.inputDir) {
+    if (options.type === 'agents' || options.type === 'all') {
+      const r = convertAgents(options.inputDir, outputDir);
+      totalSuccess += r.success; totalFail += r.fail;
+    }
+    if (options.type === 'skills' || options.type === 'all') {
+      const r = convertSkills(options.inputDir, outputDir);
+      totalSuccess += r.success; totalFail += r.fail;
+    }
+  } else {
+    // Discover plugins from marketplace.json
+    const plugins = discoverPluginDirs();
 
-  if (options.type === 'skills' || options.type === 'all') {
-    const skillsDir = options.inputDir || path.join(__dirname, 'skills');
-    const r = convertSkills(skillsDir, outputDir);
-    totalSuccess += r.success; totalFail += r.fail;
+    if (plugins && plugins.length > 0) {
+      console.log(`Discovered ${plugins.length} plugin(s) from marketplace.json\n`);
+      plugins.forEach(plugin => {
+        console.log(`--- Plugin: ${plugin.name} ---`);
+        if (options.type === 'agents' || options.type === 'all') {
+          const agentsDir = path.join(plugin.sourcePath, 'agents');
+          const r = convertAgents(agentsDir, outputDir);
+          totalSuccess += r.success; totalFail += r.fail;
+        }
+        if (options.type === 'skills' || options.type === 'all') {
+          const skillsDir = path.join(plugin.sourcePath, 'skills');
+          const r = convertSkills(skillsDir, outputDir);
+          totalSuccess += r.success; totalFail += r.fail;
+        }
+      });
+    } else {
+      // Fallback to legacy flat dirs at repo root
+      console.log('No marketplace.json found — falling back to root agents/ and skills/ directories\n');
+      if (options.type === 'agents' || options.type === 'all') {
+        const r = convertAgents(path.join(__dirname, 'agents'), outputDir);
+        totalSuccess += r.success; totalFail += r.fail;
+      }
+      if (options.type === 'skills' || options.type === 'all') {
+        const r = convertSkills(path.join(__dirname, 'skills'), outputDir);
+        totalSuccess += r.success; totalFail += r.fail;
+      }
+    }
   }
 
   console.log(`\n==================================`);

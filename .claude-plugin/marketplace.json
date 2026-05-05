@@ -1,26 +1,32 @@
 {
   "name": "context-management-plugins",
-  "description": "Independent context-management system for Claude Code using parallel sub-agents and structured documentation",
+  "description": "Modular context-management system for Claude Code — install only what you need.",
   "owner": {
     "name": "ty",
     "email": "noreply@mail.thetyster.dev"
   },
   "plugins": [
     {
-      "name": "context-management",
-      "description": "Adaptation of humanlayer's Independent context-management system for Claude Code using parallel sub-agents and structured documentation. Provides intelligent context management through parallel sub-agents and structured documentation.",
-      "version": "1.6.1",
-      "source": "./",
+      "name": "handoff",
+      "description": "Session handoff management — create and resume structured handoff documents between Claude Code sessions.",
+      "version": "1.0.0",
+      "source": "./plugins/handoff",
       "author": {
         "name": "ty",
         "email": "noreply@mail.thetyster.dev",
-        "keywords": [
-          "context-management",
-          "sub-agents",
-          "planning",
-          "documentation",
-          "research"
-        ]
+        "keywords": ["handoff", "session", "context-management"]
+      },
+      "homepage": "https://github.com/thetyster/context-focused-claude"
+    },
+    {
+      "name": "research-plan-implement",
+      "description": "Research-Plan-Implement workflow — parallel sub-agent research, structured planning, phase-gated implementation, and validation.",
+      "version": "1.0.0",
+      "source": "./plugins/rpi",
+      "author": {
+        "name": "ty",
+        "email": "noreply@mail.thetyster.dev",
+        "keywords": ["research", "planning", "implementation", "context-management", "sub-agents"]
       },
       "homepage": "https://github.com/thetyster/context-focused-claude"
     }

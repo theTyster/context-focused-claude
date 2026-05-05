@@ -65,19 +65,30 @@ Here's some pre-existing research:
 
 ## Installation
 
-Install from the Claude Code plugin marketplace and enable it:
+Install from the Claude Code plugin marketplace and enable the plugins you need:
 
 ```bash
-claude plugin marketplace add https://github.com/thetyster/context-focused-claude.git;
-claude plugin install context-management@context-management-plugins;
-claude plugin enable context-management@context-management-plugins;
+# Add the marketplace repository
+claude plugin marketplace add https://github.com/thetyster/context-focused-claude.git
+
+# Install the Research-Plan-Implement workflow (research, planning, implementation, validation)
+claude plugin install rpi@context-management-plugins
+claude plugin enable rpi@context-management-plugins
+
+# Install session handoff management (create/resume handoff documents)
+claude plugin install handoff@context-management-plugins
+claude plugin enable handoff@context-management-plugins
 ```
+
+You can install either or both plugins independently depending on your needs.
 
 ## What It Provides
 
 ### Skills (Slash Commands)
 
 Skills are full-context slash commands that orchestrate complex workflows. They have access to all tools.
+
+#### `rpi` plugin
 
 | Skill             | Command            | Purpose                                                                                |
 | ----------------- | ------------------ | -------------------------------------------------------------------------------------- |
@@ -86,22 +97,35 @@ Skills are full-context slash commands that orchestrate complex workflows. They 
 | create_plan       | /create_plan       | Autonomously creates detailed implementation plans through parallel sub-agent research |
 | implement_plan    | /implement_plan    | Executes approved plans phase-by-phase with verification checkpoints                   |
 | validate_plan     | /validate_plan     | Validates a newly implemented plan by running through the plans validation steps       |
-| create_handoff    | /create_handoff    | Creates a structured handoff document for session transfer                             |
-| resume_handoff    | /resume_handoff    | Resumes work from a handoff document with state validation                             |
+
+#### `handoff` plugin
+
+| Skill          | Command         | Purpose                                                        |
+| -------------- | --------------- | -------------------------------------------------------------- |
+| create_handoff | /create_handoff | Creates a structured handoff document for session transfer     |
+| resume_handoff | /resume_handoff | Resumes work from a handoff document with state validation     |
 
 ### Agents (Constrained Sub-Agents)
 
 Agents are specialized sub-agents with limited tool access. They run in isolated context to avoid polluting your main conversation. Invoke them using the `Task` tool with the appropriate `subagent_type`.
+
+#### `rpi` plugin
 
 | Agent                   | Model  | Purpose                                                              | Tools                                     |
 | ----------------------- | ------ | -------------------------------------------------------------------- | ----------------------------------------- |
 | codebase_locator        | Haiku  | Finds WHERE code lives — files, directories, components              | Grep, Glob, LS                            |
 | codebase_analyzer       | Sonnet | Analyzes HOW code works — traces data flow, documents implementation | Read, Grep, Glob, LS                      |
 | codebase_pattern_finder | Haiku  | Finds similar implementations and code patterns with actual snippets | Grep, Glob, Read, LS                      |
-| thoughts_locator        | Haiku  | Discovers relevant documents in the thoughts/ directory              | Grep, Glob, LS                            |
-| thoughts_analyzer       | Sonnet | Extracts high-value insights from thoughts/ documents                | Read, Grep, Glob, LS                      |
 | thoughts_writer         | Sonnet | Writes content verbatim to the thoughts/ directory                   | Write, Edit, Read, Glob, LS, Bash         |
 | web_search_researcher   | Haiku  | Researches questions using web search and page fetching              | WebSearch, WebFetch, Read, Grep, Glob, LS |
+
+#### `handoff` plugin
+
+| Agent           | Model  | Purpose                                                 | Tools                     |
+| --------------- | ------ | ------------------------------------------------------- | ------------------------- |
+| thoughts_locator  | Haiku  | Discovers relevant documents in the thoughts/ directory | Grep, Glob, LS            |
+| thoughts_analyzer | Sonnet | Extracts high-value insights from thoughts/ documents   | Read, Grep, Glob, LS      |
+| thoughts_writer   | Sonnet | Writes content verbatim to the thoughts/ directory      | Write, Edit, Read, Glob, LS, Bash |
 
 Almost all codebase agents are **documentarians, not critics** — they describe what exists without suggesting improvements or identifying problems.
 
